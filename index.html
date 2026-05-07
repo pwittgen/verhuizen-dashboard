@@ -1,0 +1,1245 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Relocation Dashboard · Pieter &amp; Gloria</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap">
+<style>
+/* ==========================================================================
+   FounderSix — presentation stylesheet (inlined for self-contained delivery)
+   Desktop-first dashboard layer for the relocation tracker.
+   ========================================================================== */
+:root {
+  --fs-ink: #1a1f6b;
+  --fs-ink-deep: #0d1149;
+  --fs-ink-soft: #4a4f8c;
+  --fs-bg: #fafaf7;
+  --fs-bg-alt: #f4f1ea;
+  --fs-surface: #ffffff;
+  --fs-rule: #e5e1d6;
+  --fs-rule-strong: #c9c3b2;
+  --fs-text: #1c1c1c;
+  --fs-text-muted: #5a5a5a;
+  --fs-text-faint: #8a8780;
+  --fs-note: #1a1f6b;
+  --fs-tip: #2f6b3a;
+  --fs-warn: #a85a00;
+  --fs-danger: #a8202c;
+  --fs-serif: "Fraunces", "Georgia", "Iowan Old Style", "Apple Garamond", serif;
+  --fs-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  --fs-mono: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+  --fs-size-xs: 0.75rem;
+  --fs-size-sm: 0.875rem;
+  --fs-size-base: 1rem;
+  --fs-size-md: 1.0625rem;
+  --fs-size-lg: 1.375rem;
+  --fs-size-xl: 1.75rem;
+  --fs-size-2xl: 2.25rem;
+  --fs-size-3xl: 3rem;
+  --fs-size-4xl: 4rem;
+  --fs-space-1: 0.25rem; --fs-space-2: 0.5rem; --fs-space-3: 0.75rem;
+  --fs-space-4: 1rem; --fs-space-5: 1.5rem; --fs-space-6: 2rem;
+  --fs-space-7: 3rem; --fs-space-8: 4rem; --fs-space-9: 6rem;
+  --fs-wide: 1440px;            /* widened for desktop dashboard density */
+  --fs-gutter: clamp(1rem, 2.5vw, 2rem);
+  --fs-ease: cubic-bezier(0.2, 0.6, 0.2, 1);
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: 80px; }
+body {
+  margin: 0;
+  background: var(--fs-bg);
+  color: var(--fs-text);
+  font-family: var(--fs-sans);
+  font-size: var(--fs-size-md);
+  line-height: 1.55;
+  font-feature-settings: "ss01", "cv02", "cv11";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+::selection { background: var(--fs-ink); color: #fff; }
+img, svg { max-width: 100%; display: block; }
+h1, h2, h3, h4, h5, h6 {
+  color: var(--fs-ink);
+  font-family: var(--fs-sans);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  margin: 0 0 var(--fs-space-3);
+  text-wrap: balance;
+}
+h1, .fs-display {
+  font-family: var(--fs-serif);
+  font-weight: 500;
+  font-size: var(--fs-size-3xl);
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+.fs-display-xl {
+  font-family: var(--fs-serif);
+  font-weight: 500;
+  font-size: clamp(2.25rem, 5vw, 3.5rem);
+  line-height: 1;
+  letter-spacing: -0.025em;
+  color: var(--fs-ink);
+}
+h2 { font-size: var(--fs-size-2xl); margin-top: var(--fs-space-7); }
+h3 { font-size: 1.05rem; margin-top: var(--fs-space-4); margin-bottom: var(--fs-space-2);
+     text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; color: var(--fs-ink); }
+h4 {
+  font-size: var(--fs-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 600;
+  color: var(--fs-ink-soft);
+  margin: 0 0 var(--fs-space-2);
+}
+p { margin: 0 0 var(--fs-space-3); text-wrap: pretty; }
+.fs-lead {
+  font-family: var(--fs-sans);
+  font-weight: 400;
+  font-size: var(--fs-size-lg);
+  line-height: 1.5;
+  color: var(--fs-ink-soft);
+  max-width: 64ch;
+  letter-spacing: -0.005em;
+}
+.fs-eyebrow {
+  display: inline-block;
+  font-family: var(--fs-sans);
+  font-size: var(--fs-size-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--fs-ink);
+  margin-bottom: var(--fs-space-2);
+}
+.fs-eyebrow::before {
+  content: ""; display: inline-block; width: 1.5rem; height: 1px;
+  background: var(--fs-ink); vertical-align: middle;
+  margin-right: 0.75rem; transform: translateY(-2px);
+}
+.fs-meta {
+  font-size: var(--fs-size-sm);
+  color: var(--fs-text-faint);
+  font-variant-numeric: tabular-nums;
+  font-family: var(--fs-mono);
+}
+a {
+  color: var(--fs-ink);
+  text-decoration: underline;
+  text-decoration-color: var(--fs-rule-strong);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: text-decoration-color 0.15s var(--fs-ease);
+}
+a:hover { text-decoration-color: var(--fs-ink); }
+strong, b { font-weight: 600; color: var(--fs-ink-deep); }
+em, i { font-family: var(--fs-serif); font-style: italic; }
+.fs-page {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+}
+.fs-container {
+  width: 100%;
+  max-width: var(--fs-wide);
+  margin: 0 auto;
+  padding: 0 var(--fs-gutter);
+}
+.fs-header {
+  border-bottom: 1px solid var(--fs-rule);
+  padding: var(--fs-space-3) 0;
+  background: color-mix(in srgb, var(--fs-bg) 92%, transparent);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  backdrop-filter: blur(8px);
+}
+.fs-header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--fs-space-5);
+}
+.fs-wordmark {
+  font-family: var(--fs-serif);
+  font-weight: 500;
+  font-size: 1.25rem;
+  color: var(--fs-ink);
+  letter-spacing: -0.01em;
+  line-height: 1;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.fs-wordmark::before {
+  content: ""; display: inline-block; width: 10px; height: 10px;
+  background: var(--fs-ink); border-radius: 50%;
+}
+.fs-wordmark__sub {
+  font-family: var(--fs-sans);
+  font-weight: 400;
+  font-style: normal;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--fs-text-muted);
+  padding-left: 0.5rem;
+  margin-left: 0.25rem;
+  border-left: 1px solid var(--fs-rule-strong);
+}
+.fs-header-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--fs-space-5);
+  font-size: var(--fs-size-sm);
+  color: var(--fs-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+.fs-header-meta > * + *::before {
+  content: ""; display: inline-block; width: 1px; height: 12px;
+  background: var(--fs-rule-strong);
+  margin-right: var(--fs-space-5); vertical-align: middle;
+}
+/* ==========================================================================
+   Workstream sub-nav — sticky directly under header, jump-links to anchors
+   ========================================================================== */
+.fs-subnav {
+  position: sticky;
+  top: 50px;
+  z-index: 15;
+  background: color-mix(in srgb, var(--fs-bg-alt) 96%, transparent);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--fs-rule);
+  font-size: var(--fs-size-xs);
+}
+.fs-subnav-inner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  align-items: center;
+  padding: 0.4rem 0;
+}
+.fs-subnav a {
+  font-family: var(--fs-mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--fs-ink-soft);
+  text-decoration: none;
+  padding: 0.3rem 0.7rem;
+  border-right: 1px solid var(--fs-rule);
+  white-space: nowrap;
+}
+.fs-subnav a:first-child { padding-left: 0; }
+.fs-subnav a:hover { color: var(--fs-ink); background: var(--fs-bg); }
+.fs-subnav__label {
+  font-family: var(--fs-mono);
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--fs-text-faint);
+  padding-right: 0.7rem;
+  border-right: 1px solid var(--fs-rule);
+}
+.fs-footer {
+  border-top: 1px solid var(--fs-rule);
+  padding: var(--fs-space-5) 0;
+  margin-top: var(--fs-space-8);
+  font-size: var(--fs-size-sm);
+  color: var(--fs-text-faint);
+}
+.fs-footer-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--fs-space-4);
+}
+/* ==========================================================================
+   Cover — compact dashboard hero, not a deck cover
+   ========================================================================== */
+.fs-cover {
+  padding: clamp(2rem, 4vw, 3.5rem) 0 clamp(1.5rem, 3vw, 2.5rem);
+  border-bottom: 1px solid var(--fs-rule);
+}
+.fs-cover-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--fs-space-5);
+}
+@media (min-width: 900px) {
+  .fs-cover-grid {
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+    gap: var(--fs-space-7);
+    align-items: end;
+  }
+}
+.fs-cover-meta {
+  font-family: var(--fs-sans);
+  font-size: var(--fs-size-sm);
+  color: var(--fs-text-muted);
+  border-top: 1px solid var(--fs-rule-strong);
+  padding-top: var(--fs-space-3);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--fs-space-2) var(--fs-space-4);
+}
+.fs-cover-meta dt {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--fs-text-faint);
+  margin: 0;
+}
+.fs-cover-meta dd {
+  margin: 0 0 var(--fs-space-2);
+  color: var(--fs-ink-deep);
+  font-weight: 500;
+}
+/* ==========================================================================
+   Section header
+   ========================================================================== */
+.fs-section-header {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: var(--fs-space-4);
+  align-items: baseline;
+  margin: var(--fs-space-7) 0 var(--fs-space-4);
+  padding-bottom: var(--fs-space-2);
+  border-bottom: 1px solid var(--fs-ink);
+}
+.fs-section-header__num {
+  font-family: var(--fs-mono);
+  font-size: var(--fs-size-sm);
+  color: var(--fs-ink);
+  letter-spacing: 0.1em;
+  font-weight: 600;
+}
+.fs-section-header h2 {
+  margin: 0;
+  font-family: var(--fs-serif);
+  font-weight: 500;
+  font-size: var(--fs-size-xl);
+  letter-spacing: -0.02em;
+}
+/* ==========================================================================
+   Tables — dense by default
+   ========================================================================== */
+.fs-table-wrap {
+  margin: 0 0 var(--fs-space-4);
+  overflow-x: auto;
+  border-top: 2px solid var(--fs-ink);
+  border-bottom: 1px solid var(--fs-rule-strong);
+  background: var(--fs-surface);
+}
+table.fs-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8125rem;
+  font-variant-numeric: tabular-nums;
+}
+.fs-table caption {
+  text-align: left;
+  font-family: var(--fs-serif);
+  font-style: italic;
+  font-size: var(--fs-size-sm);
+  color: var(--fs-text-muted);
+  padding: var(--fs-space-2) 0;
+  caption-side: bottom;
+}
+.fs-table thead th {
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--fs-ink);
+  padding: 0.45rem 0.65rem;
+  border-bottom: 1px solid var(--fs-ink);
+  white-space: nowrap;
+  background: var(--fs-bg-alt);
+}
+.fs-table tbody td {
+  padding: 0.4rem 0.65rem;
+  border-bottom: 1px solid var(--fs-rule);
+  vertical-align: top;
+  color: var(--fs-text);
+  line-height: 1.35;
+}
+.fs-table tbody tr:last-child td { border-bottom: none; }
+.fs-table tbody tr:hover td { background: var(--fs-bg-alt); }
+.fs-table .num { text-align: right; font-variant-numeric: tabular-nums; }
+.fs-table .col-id { width: 38px; font-family: var(--fs-mono); font-size: 0.7rem; color: var(--fs-text-faint); }
+.fs-table .col-sm { width: 7%; }
+.fs-table .col-md { width: 14%; white-space: nowrap; }
+.fs-table .col-status { width: 9rem; }
+/* ==========================================================================
+   Status pills — compact, mapped to FS palette
+   ========================================================================== */
+.fs-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--fs-mono);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 0.1rem 0.4rem;
+  border: 1px solid var(--fs-rule-strong);
+  background: var(--fs-bg);
+  color: var(--fs-text-muted);
+  white-space: nowrap;
+  border-radius: 2px;
+}
+.fs-status::before {
+  content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+  background: currentColor;
+}
+.fs-status--green  { color: var(--fs-tip);    border-color: var(--fs-tip); }
+.fs-status--yellow { color: var(--fs-warn);   border-color: var(--fs-warn); }
+.fs-status--red    { color: var(--fs-danger); border-color: var(--fs-danger); }
+/* ==========================================================================
+   Callouts — used only for genuine top risks/blockers
+   ========================================================================== */
+.fs-callout {
+  margin: 0 0 var(--fs-space-3);
+  padding: 0.75rem 0.9rem;
+  background: var(--fs-surface);
+  border: 1px solid var(--fs-rule);
+  border-left: 3px solid var(--fs-ink);
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.75rem;
+  align-items: start;
+}
+.fs-callout__icon {
+  width: 22px; height: 22px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  background: var(--fs-ink);
+  color: #fff;
+  font-family: var(--fs-serif);
+  font-weight: 600;
+  font-size: 0.75rem;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.fs-callout__title {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 600;
+  color: var(--fs-ink);
+  margin: 0 0 0.2rem;
+}
+.fs-callout__body { margin: 0; font-size: var(--fs-size-sm); line-height: 1.5; }
+.fs-callout__body > *:last-child { margin-bottom: 0; }
+.fs-callout__body p { margin-bottom: 0.4rem; }
+.fs-callout--note   { border-left-color: var(--fs-note); }
+.fs-callout--note .fs-callout__icon   { background: var(--fs-note); }
+.fs-callout--note .fs-callout__title  { color: var(--fs-note); }
+.fs-callout--tip    { border-left-color: var(--fs-tip); }
+.fs-callout--tip .fs-callout__icon    { background: var(--fs-tip); }
+.fs-callout--tip .fs-callout__title   { color: var(--fs-tip); }
+.fs-callout--warn   { border-left-color: var(--fs-warn); }
+.fs-callout--warn .fs-callout__icon   { background: var(--fs-warn); }
+.fs-callout--warn .fs-callout__title  { color: var(--fs-warn); }
+.fs-callout--danger { border-left-color: var(--fs-danger); }
+.fs-callout--danger .fs-callout__icon { background: var(--fs-danger); }
+.fs-callout--danger .fs-callout__title{ color: var(--fs-danger); }
+code, kbd, samp {
+  font-family: var(--fs-mono);
+  font-size: 0.85em;
+  background: var(--fs-bg-alt);
+  padding: 0.1em 0.3em;
+  border-radius: 3px;
+  color: var(--fs-ink-deep);
+}
+/* ==========================================================================
+   Key-value list — compact two-column
+   ========================================================================== */
+.fs-kv {
+  margin: 0 0 var(--fs-space-3);
+  display: grid;
+  grid-template-columns: minmax(140px, 1fr) minmax(0, 3fr);
+  gap: 0;
+  border-top: 1px solid var(--fs-rule);
+}
+.fs-kv dt, .fs-kv dd {
+  padding: 0.4rem 0.65rem;
+  border-bottom: 1px solid var(--fs-rule);
+  margin: 0;
+  font-size: var(--fs-size-sm);
+  line-height: 1.4;
+}
+.fs-kv dt {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--fs-ink);
+  font-weight: 600;
+  background: var(--fs-bg-alt);
+}
+.fs-kv dd { color: var(--fs-text); }
+/* ==========================================================================
+   Desktop dashboard grids — multi-column when ≥1280px
+   ========================================================================== */
+.fs-dash-grid-3 {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--fs-space-4);
+}
+.fs-dash-grid-2 {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--fs-space-4);
+}
+@media (min-width: 1024px) {
+  .fs-dash-grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (min-width: 1280px) {
+  .fs-dash-grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+.fs-card {
+  background: var(--fs-surface);
+  border: 1px solid var(--fs-rule);
+  padding: 0.85rem 1rem 0.4rem;
+}
+.fs-card h3 { margin-top: 0; }
+.fs-card .fs-table-wrap { margin-top: 0.4rem; border-top-width: 1px; }
+.fs-card__caption {
+  font-size: 0.7rem;
+  color: var(--fs-text-faint);
+  font-family: var(--fs-mono);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+/* Critical-path mini-stack inside dashboard card */
+.fs-cp {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 0.8rem;
+}
+.fs-cp li {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.5rem;
+  align-items: baseline;
+  padding: 0.32rem 0;
+  border-bottom: 1px dashed var(--fs-rule);
+}
+.fs-cp li:last-child { border-bottom: 0; }
+.fs-cp__label { color: var(--fs-text); }
+.fs-cp__date  { font-family: var(--fs-mono); font-size: 0.7rem; color: var(--fs-text-muted); }
+.fs-cp__owner { font-size: 0.7rem; color: var(--fs-text-faint); display: block; }
+/* Phase chain (text rendering of critical-path graph) */
+.fs-chain {
+  font-family: var(--fs-mono);
+  font-size: 0.72rem;
+  background: var(--fs-bg-alt);
+  border: 1px solid var(--fs-rule);
+  padding: 0.6rem 0.8rem;
+  white-space: pre;
+  overflow-x: auto;
+  color: var(--fs-ink-deep);
+  line-height: 1.55;
+  margin: 0 0 var(--fs-space-3);
+}
+/* Glossary table — three columns, compact */
+.fs-glossary {
+  font-size: 0.78rem;
+}
+.fs-glossary th { font-size: 0.62rem; }
+.fs-glossary td { padding: 0.3rem 0.55rem; }
+.fs-glossary td:first-child { font-family: var(--fs-mono); font-weight: 600; color: var(--fs-ink-deep); white-space: nowrap; width: 11rem; }
+.fs-glossary td:nth-child(2) { width: 22rem; color: var(--fs-text); }
+.fs-glossary td:nth-child(3) { color: var(--fs-text-muted); }
+hr, .fs-rule {
+  border: 0; height: 1px;
+  background: var(--fs-rule-strong);
+  margin: var(--fs-space-5) 0;
+}
+/* ==========================================================================
+   Mobile responsive layer — graceful degradation only.
+   Multi-column dashboards collapse; tables scroll horizontally.
+   ========================================================================== */
+@media (max-width: 900px) {
+  .fs-subnav { display: none; }
+  .fs-section-header { grid-template-columns: 44px 1fr; }
+}
+@media (max-width: 640px) {
+  :root {
+    --fs-gutter: 1rem;
+    --fs-space-9: 3rem;
+    --fs-space-8: 2.25rem;
+    --fs-space-7: 2rem;
+  }
+  body { font-size: var(--fs-size-base); line-height: 1.55; }
+  .fs-display-xl { font-size: 2.25rem; line-height: 1.05; }
+  h1, .fs-display { font-size: 2rem; }
+  h2 { font-size: 1.5rem; margin-top: var(--fs-space-7); }
+  h3 { font-size: 0.95rem; }
+  .fs-lead { font-size: 1.0625rem; line-height: 1.5; }
+  .fs-cover { padding: 2rem 0 1.5rem; }
+  .fs-cover-grid { grid-template-columns: minmax(0, 1fr); gap: var(--fs-space-5); }
+  .fs-cover-meta { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--fs-space-2); }
+  .fs-header-inner { gap: var(--fs-space-3); flex-wrap: wrap; }
+  .fs-header-meta { gap: var(--fs-space-3); font-size: var(--fs-size-xs); }
+  .fs-header-meta > * + *::before { margin-right: var(--fs-space-3); }
+  .fs-header-meta .fs-header-meta__hide-sm { display: none; }
+  .fs-wordmark { font-size: 1.05rem; }
+  .fs-wordmark__sub { font-size: 0.65rem; padding-left: 0.35rem; margin-left: 0.15rem; }
+  /* tables — preserve horizontal scroll */
+  .fs-table-wrap { margin: var(--fs-space-3) 0; }
+  table.fs-table { min-width: 560px; font-size: 0.78rem; }
+  .fs-table thead th { padding: 0.4rem 0.55rem; }
+  .fs-table tbody td { padding: 0.35rem 0.55rem; }
+  /* key-value list — stack dt over dd */
+  .fs-kv { grid-template-columns: minmax(0, 1fr); }
+  .fs-kv dt { border-bottom: none; padding-bottom: 0; }
+  .fs-kv dd { padding-top: var(--fs-space-1); }
+  /* callouts — tighter */
+  .fs-callout {
+    padding: 0.6rem 0.75rem;
+    grid-template-columns: auto 1fr;
+    gap: 0.55rem;
+    min-height: 44px;
+  }
+  .fs-callout__icon { width: 22px; height: 22px; font-size: 0.75rem; }
+  /* glossary stacks */
+  .fs-glossary td:first-child { width: 8rem; }
+  .fs-glossary td:nth-child(2) { width: auto; }
+  /* footer stack */
+  .fs-footer-inner { flex-direction: column; align-items: flex-start; gap: var(--fs-space-2); }
+  /* anchors / interactive — touch-target ≥44px */
+  a { min-height: 44px; display: inline-block; }
+  a.fs-wordmark, .fs-subnav a { display: inline-flex; min-height: 0; }
+  .fs-table a, .fs-kv a, .fs-callout a, p a { min-height: 0; display: inline; }
+}
+@media (max-width: 480px) {
+  .fs-display-xl { font-size: 1.85rem; line-height: 1.05; }
+  h1, .fs-display { font-size: 1.6rem; }
+  h2 { font-size: 1.25rem; }
+  h3 { font-size: 0.85rem; }
+  .fs-lead { font-size: 1rem; }
+  .fs-cover { padding: 1.5rem 0 1rem; }
+  .fs-cover-meta { grid-template-columns: minmax(0, 1fr); }
+  table.fs-table { min-width: 520px; font-size: 0.74rem; }
+  .fs-section-header { grid-template-columns: 36px 1fr; }
+  .fs-section-header__num { font-size: var(--fs-size-xs); }
+  .fs-eyebrow { font-size: 0.65rem; }
+  .fs-eyebrow::before { width: 1rem; margin-right: 0.5rem; }
+  .fs-status { font-size: 0.6rem; padding: 0.08rem 0.35rem; }
+}
+@page { size: A4; margin: 18mm 16mm 20mm 16mm; }
+@media print {
+  :root { --fs-size-md: 10.5pt; --fs-size-base: 10pt; --fs-size-sm: 9.5pt; --fs-size-xs: 8.5pt; }
+  body { background: #fff; font-size: 10pt; line-height: 1.5; color: #000; }
+  .fs-header, .fs-subnav { position: static; backdrop-filter: none; background: #fff; border-bottom: 0.5pt solid #000; }
+  .fs-footer { border-top: 0.5pt solid #000; }
+  h1, h2, h3, h4 { page-break-after: avoid; break-after: avoid; }
+  .fs-table-wrap, .fs-callout { page-break-inside: avoid; break-inside: avoid; }
+  .fs-cover { page-break-after: always; break-after: page; }
+  a { color: #000; text-decoration: underline; }
+  .fs-no-print { display: none !important; }
+  .fs-dash-grid-3, .fs-dash-grid-2 { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="fs-page">
+
+  <header class="fs-header fs-no-print">
+    <div class="fs-container fs-header-inner">
+      <a class="fs-wordmark" href="#">Relocation<span class="fs-wordmark__sub">Pieter &amp; Gloria</span></a>
+      <nav class="fs-header-meta">
+        <span class="fs-header-meta__hide-sm">Live dashboard</span>
+        <span>Last updated 7 May 2026</span>
+        <span class="fs-header-meta__hide-sm">HK &rarr; Leiden &middot; 20 Jul 2026</span>
+      </nav>
+    </div>
+  </header>
+
+  <nav class="fs-subnav fs-no-print" aria-label="Section jump-links">
+    <div class="fs-container fs-subnav-inner">
+      <span class="fs-subnav__label">Jump to</span>
+      <a href="#status">01 Status</a>
+      <a href="#dashboard">02 Dashboard</a>
+      <a href="#path">03 Critical path</a>
+      <a href="#workstreams">04 Workstreams</a>
+      <a href="#open">05 Open questions</a>
+      <a href="#decisions">06 Decisions</a>
+      <a href="#team">07 Team</a>
+      <a href="#glossary">08 Glossary</a>
+    </div>
+  </nav>
+
+  <main>
+
+    <section class="fs-cover">
+      <div class="fs-container">
+        <div class="fs-cover-grid">
+          <div>
+            <div class="fs-eyebrow">Live dashboard &middot; week 19, 2026</div>
+            <h1 class="fs-display-xl">Relocation Dashboard.</h1>
+            <p class="fs-lead">A running view of Pieter and his family's move from Hong Kong to Leiden on 20 July 2026 &mdash; ten workstreams, critical path, open decisions. Dutch terms keep their Dutch names; see &sect; 08 Glossary for explanations.</p>
+          </div>
+          <dl class="fs-cover-meta">
+            <div><dt>Move date</dt><dd>20 July 2026</dd></div>
+            <div><dt>Destination</dt><dd>Leiden, Netherlands</dd></div>
+            <div><dt>Program manager</dt><dd>Daan</dd></div>
+            <div><dt>Last updated</dt><dd>7 May 2026</dd></div>
+            <div><dt>Cadence</dt><dd>Weekly Fri rollup</dd></div>
+            <div><dt>Next rollup</dt><dd>15 May 2026</dd></div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <div class="fs-container">
+
+      <!-- ======= 01 STATUS ======= -->
+      <section class="fs-section-header">
+        <span class="fs-section-header__num">&sect; 01</span>
+        <h2 id="status">Status this week</h2>
+      </section>
+
+      <p>Tracker v1 is live. The ten workstreams are laid out and the critical path is mapped: BRP &rarr; BSN &rarr; DigiD &rarr; KvK Gloria &rarr; daycare contract &rarr; KOT &rarr; BV payroll &rarr; IND submission. The tax-team recommendation is to shift the IND submission to ~10 October for a stronger dossier; Pieter decides by 30 June. Two blockers are open to the tax team (Box 3 toetsingsinkomen; ZZP threshold for IACK) and one to Pieter (route and date of the January 2026 naturalisation application). The May priority is the daycare shortlist Leiden &mdash; waitlists are tight, late availability shifts the entire KOT window.</p>
+
+      <!-- ======= 02 DASHBOARD: 3-COLUMN OVERVIEW ======= -->
+      <section class="fs-section-header">
+        <span class="fs-section-header__num">&sect; 02</span>
+        <h2 id="dashboard">Dashboard &mdash; risks, actions, critical-path snapshot</h2>
+      </section>
+
+      <div class="fs-dash-grid-3">
+
+        <!-- Top risks -->
+        <div class="fs-card">
+          <h3>Top-3 risks</h3>
+          <div class="fs-callout fs-callout--danger">
+            <div class="fs-callout__icon">!</div>
+            <div>
+              <p class="fs-callout__title">R1 &middot; Daycare slot Sep not secured</p>
+              <div class="fs-callout__body">
+                <p>Leiden waitlists for Sep 2026 are tight. Late availability would push opening to Oct/Nov, shifting the KOT window 1&ndash;2 months and disrupting settling-in. <strong>Next:</strong> shortlist + waitlist registrations on &ge;3 LRK centres, this week. Owner: Pieter.</p>
+              </div>
+            </div>
+          </div>
+          <div class="fs-callout fs-callout--warn">
+            <div class="fs-callout__icon">!</div>
+            <div>
+              <p class="fs-callout__title">R2 &middot; BV formation / payroll slips</p>
+              <div class="fs-callout__body">
+                <p>Notary target was 15 April. A slip into May/June puts payroll under pressure: 0&ndash;1 payslips at IND submission instead of three. Mitigation: make the wealth route primary, DGA salary as secondary evidence. Owner: Pieter, with belastingadviseur.</p>
+              </div>
+            </div>
+          </div>
+          <div class="fs-callout fs-callout--warn">
+            <div class="fs-callout__icon">!</div>
+            <div>
+              <p class="fs-callout__title">R3 &middot; Naturalisation undecided on 20 Jul</p>
+              <div class="fs-callout__body">
+                <p>Application submitted Jan 2026, minimum lead time six months. A decision after 20 Jul activates the residence-permit track (Plan B). Sub-risk: late-July submission yields a weaker dossier than the recommended ~10 Oct. Owner: Pieter.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Top actions -->
+        <div class="fs-card">
+          <h3>Top-3 actions Pieter (this week)</h3>
+          <p class="fs-card__caption">Deadline 15 May 2026 for all three</p>
+          <div class="fs-table-wrap">
+            <table class="fs-table">
+              <thead><tr><th class="col-id">#</th><th>Action</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>Daycare Leiden &mdash; shortlist + waitlist registrations on &ge;3 LRK-registered centres.</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>Confirm Gloria's naturalisation route + exact Jan 2026 submission date (consulate HK?, art. 8 &sect;4 RWN?).</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>Status check notary (BV passing target 15 Apr) + confirm engagement of belastingadviseur.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="fs-card__caption" style="margin-top:0.5rem;">Decisions due (next 8 wk)</p>
+          <div class="fs-table-wrap">
+            <table class="fs-table">
+              <thead><tr><th>Decision</th><th class="col-md">By</th></tr></thead>
+              <tbody>
+                <tr><td>Naturalisation route (Scenario A vs B)</td><td>15 May</td></tr>
+                <tr><td>Daycare shortlist + waitlists</td><td>15 May</td></tr>
+                <tr><td>Lock DGA salary level (default &euro;60K/yr)</td><td>15 Jun</td></tr>
+                <tr><td>IND submission date (default 10 Oct)</td><td>30 Jun</td></tr>
+                <tr><td>Wealth statement prepared</td><td>15 Jul</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Critical-path snapshot -->
+        <div class="fs-card">
+          <h3>Critical-path milestones</h3>
+          <p class="fs-card__caption">Chain &mdash; BRP unlocks everything downstream</p>
+          <pre class="fs-chain">BRP -&gt; BSN -&gt; DigiD -&gt; Health insurance
+   |
+   +--&gt; KvK Gloria -&gt; Daycare LRK
+                       |
+                       +--&gt; KOT (&le;30d after start)
+   |
+   +--&gt; BV -&gt; DGA payroll -&gt; First invoice
+                                |
+                                +--&gt; IND submission (~10 Oct)</pre>
+          <ol class="fs-cp">
+            <li>
+              <span class="fs-cp__label">BRP appointment booked
+                <span class="fs-cp__owner">Pieter</span>
+              </span>
+              <span class="fs-cp__date">1 Jul 2026</span>
+            </li>
+            <li>
+              <span class="fs-cp__label">BRP registration in person
+                <span class="fs-cp__owner">Family of 4</span>
+              </span>
+              <span class="fs-cp__date">&le;25 Jul 2026</span>
+            </li>
+            <li>
+              <span class="fs-cp__label">DigiD active &middot; KvK ZZP Gloria
+                <span class="fs-cp__owner">Gloria</span>
+              </span>
+              <span class="fs-cp__date">wk 25&ndash;31 Jul</span>
+            </li>
+            <li>
+              <span class="fs-cp__label">Daycare contract LRK signed
+                <span class="fs-cp__owner">Pieter + Gloria</span>
+              </span>
+              <span class="fs-cp__date">&le;15 Aug 2026</span>
+            </li>
+            <li>
+              <span class="fs-cp__label">First payroll Werkmaatschappij
+                <span class="fs-cp__owner">Belastingadviseur</span>
+              </span>
+              <span class="fs-cp__date">15 Jul 2026</span>
+            </li>
+            <li>
+              <span class="fs-cp__label">KOT application submitted
+                <span class="fs-cp__owner">Pieter</span>
+              </span>
+              <span class="fs-cp__date">&le;30d after start</span>
+            </li>
+            <li>
+              <span class="fs-cp__label">IND submission (Plan B)
+                <span class="fs-cp__owner">Pieter (sponsor)</span>
+              </span>
+              <span class="fs-cp__date">~10 Oct 2026</span>
+            </li>
+          </ol>
+        </div>
+
+      </div>
+
+      <!-- ======= 03 PROGRAM TIMELINE ======= -->
+      <section class="fs-section-header">
+        <span class="fs-section-header__num">&sect; 03</span>
+        <h2 id="path">Program timeline &mdash; phase by phase</h2>
+      </section>
+
+      <div class="fs-dash-grid-2">
+        <div class="fs-card">
+          <h3>May 2026 &middot; preparation</h3>
+          <p>Two parallel tracks: childcare registrations for September start, and confirmation of route and submission date for the January 2026 naturalisation. Determines whether Plan A or Plan B activates on arrival.</p>
+        </div>
+        <div class="fs-card">
+          <h3>June 2026 &middot; structure</h3>
+          <p>Notary passes Holding + Werkmaatschappij. Payroll set up. Share transfer of the 15% Six Degrees stake to Holding by end of June. Determines whether the DGA-salary route or the wealth route leads at IND.</p>
+        </div>
+        <div class="fs-card">
+          <h3>20 July 2026 &middot; arrival</h3>
+          <p>Flight HK &rarr; NL, move into Leiden home. Gloria enters visa-free on the Canadian passport (Schengen 90/180). Temporary housing until container arrives. First payroll run Werkmaatschappij targeted 15 July or the week after.</p>
+        </div>
+        <div class="fs-card">
+          <h3>Wk 21&ndash;25 Jul &middot; BRP</h3>
+          <p>BRP registration Leiden for the whole family. Document pack: passports, Gloria birth certificate with apostille, property deed. BSN issued for Gloria and the children on the spot. Marriage pulled automatically from NL registers.</p>
+        </div>
+        <div class="fs-card">
+          <h3>Wk 25&ndash;31 Jul &middot; portal</h3>
+          <p>DigiD Gloria, KvK ZZP registration, health insurance. DigiD letter ~5 working days post-BSN. KvK appointment in week 28 Jul &ndash; 7 Aug. Health insurance for Gloria within the 4-month window. Preparation for KOT application.</p>
+        </div>
+        <div class="fs-card">
+          <h3>August 2026 &middot; childcare + container</h3>
+          <p>Daycare contract signed; LRK number documented. Container arrives 8&ndash;12 weeks after HK departure; unpack and delivery to Leiden. Preparation for childcare start 1 September.</p>
+        </div>
+        <div class="fs-card">
+          <h3>September 2026 &middot; ramp-up</h3>
+          <p>First childcare month. KOT application via Mijn Toeslagen within 30 days. First monthly payment around mid-October, retroactive to 1 September provided the application is timely. Kinderbijslag SVB checkpoint end of September.</p>
+        </div>
+        <div class="fs-card">
+          <h3>~10 October 2026 &middot; IND</h3>
+          <p>Recommended submission date for the strongest dossier: three payslips in hand, wealth statement available, BV-issued declarations supported by statutes and KvK extract. IND processing 90&ndash;180 days.</p>
+        </div>
+        <div class="fs-card">
+          <h3>Q4 2026 &middot; wrap-up</h3>
+          <p>Residence document type I (5 yr) collected at IND. Driving-licence conversion CA &rarr; NL via CBR (185-day deadline post-BRP). DUO inburgeringscursus enrolment if Plan B path activates.</p>
+        </div>
+      </div>
+
+      <!-- ======= 04 WORKSTREAMS — multi-column dense table grid ======= -->
+      <section class="fs-section-header">
+        <span class="fs-section-header__num">&sect; 04</span>
+        <h2 id="workstreams">Workstreams &mdash; deliverables, owners, deadlines</h2>
+      </section>
+
+      <div class="fs-dash-grid-2">
+
+        <!-- WS1 Logistics -->
+        <div class="fs-card">
+          <h3 id="ws-logistics">01 Moving logistics</h3>
+          <div class="fs-table-wrap">
+            <table class="fs-table">
+              <thead><tr><th class="col-id">ID</th><th>Deliverable</th><th class="col-md">Owner</th><th class="col-md">Deadline</th><th class="col-status">Status</th></tr></thead>
+              <tbody>
+                <tr><td>L1</td><td>Mover quotes HK&rarr;Rotterdam (Crown / Allied / Asian Tigers / Santa Fe / Voerman)</td><td>Daan</td><td>22 May 2026</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
+                <tr><td>L2</td><td>Volume estimate + packing-window</td><td>Daan</td><td>5 Jun 2026</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
+                <tr><td>L3</td><td>Inventory list + customs Verhuisboedel-vrijstelling</td><td>Daan + Pieter</td><td>30 Jun 2026</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
+                <tr><td>L4</td><td>Container pickup HK</td><td>Daan</td><td>~10 Jul 2026</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
+                <tr><td>L5</td><td>Container arrival Rotterdam + delivery Leiden</td><td>Daan</td><td>Aug&ndash;Oct 2026</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
+                <tr><td>L6</td><td>Temporary housing on arrival</td><td>Pieter</td><td>1 Jul 2026</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- WS2 BRP/BSN/DigiD -->
+        <div class="fs-card">
+          <h3 id="ws-brp">02 BRP / BSN / DigiD</h3>
+          <div class="fs-table-wrap">
+            <table class="fs-table">
+              <thead><tr><th class="col-id">ID</th><th>Deliverable</th><th class="col-md">Owner</th><th class="col-md">Deadline</th><th class="col-status">Status</th></tr></thead>
+              <tbody>
+                <tr><td>B1</td><td>Book BRP appointment gemeente Leiden</td><td>Pieter</td><td>1 Jul 2026</td><td><span class="fs-status fs-status--yellow">Not started</span></td></tr>
+                <tr><td>B2</td><td>Document-pack assembly</td><td>Daan + Pieter</td><td>15 Jul 2026</td><td><span class="fs-status fs-status--yellow">In-progress</span></td></tr>
+                <tr><td>B3</td><td>BRP registration in person</td><td>Family</td><td>&le;25 Jul 2026</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
+                <tr><td>B4</td><td>BSN issued (Gloria + children)</td><td>Gemeente Leiden</td><td>at BRP</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
+                <tr><td>B5</td><td>DigiD Gloria activated</td><td>Gloria</td><td>wk 25&ndash;31 Jul</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
+                <tr><td>B6</td><td>Mijn Toeslagen account ready</td><td>Pieter</td><td>1 Aug 2026</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- WS3 IND -->
+        <div class="fs-card">
+          <h3 id="ws-ind">03 IND / Residence permit (Scenario B)</h3>
+          <div class="fs-table-wrap">
+            <table class="fs-table">
+              <thead><tr><th class="col-id">ID</th><th>Deliverable</th><th class="col-md">Owner</th><th class="col-md">Deadline</th><th class="col-status">Status</th></tr></thead>
+              <tbody>
+                <tr><td>N1</td><td>Confirm naturalisation route + Jan 2026 submission date</td><td>Pieter</td><td>15 May 2026</td><td><span class="fs-status fs-status--red">Open</span></td></tr>
+                <tr><td>N2</td><td>Apostille on Canadian long-form birth cert</td><td>Gloria</td><td>1 Jun 2026</td><td><span class="fs-status fs-status--yellow">Not started</span></td></tr>
+                <tr><td>N3</td><td>Choose IND submission date (25 Jul / 25 Aug / 10 Oct)</td><td>Pieter</td><td>30 Jun 2026</td><td><span class="fs-status fs-status--yellow">Not started</span></td></tr>
+                <tr><td>N4</td><td>IND helpdesk: Dec-2025 birth cert still acceptable?</td><td>Pieter</td><td>20 May 2026</td><td><span class="fs-status fs-status--yellow">Not started</span></td></tr>
+                <tr><td>N5</td><td>International marriage-cert extract (NL)</td><td>Pieter</td><td>1 Jul 2026</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
+                <tr><td>N6</td><td>Antecedentenverklaring signed (form 7601)</td><td>Gloria</td><td>1 Jul 2026</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
+                <tr><td>N7</td><td>IND form 7518 pre-filled</td><td>Pieter</td><td>15 Jul 2026</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
+                <tr><td>N8</td><td>IND application submitted (Plan B)</td><td>Pieter (sponsor)</td><td>~10 Oct 2026</td><td><span class="fs-status fs-status--yellow">Not started</span></td></tr>
+                <tr><td>N9</td><td>Biometrics + residence-sticker</td><td>Gloria</td><td>~4 wk after N8</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
+                <tr><td>N10</td><td>Pick up residence document type I</td><td>Gloria</td><td>~Jan 2027</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
+                <tr><td>N11</td><td>If Scenario A: beëdiging at gemeente</td><td>Pieter + Gloria</td><td>on arrival</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- WS4 BV/Tax -->
+        <div class="fs-card">
+          <h3 id="ws-tax">04 BV / Tax (Sander)</h3>
+          <div class="fs-table-wrap">
+            <table class="fs-table">
+              <thead><tr><th class="col-id">ID</th><th>Deliverable</th><th class="col-md">Owner</th><th class="col-md">Deadline</th><th class="col-status">Status</th></tr></thead>
+              <tbody>
+                <tr><td>F1</td><td>Confirm BV formation status notary</td><td>Pieter</td><td>1 Jun 2026</td><td><span class="fs-status fs-status--yellow">In-progress</span></td></tr>
+                <tr><td>F2</td><td>Confirm engagement belastingadviseur</td><td>Pieter</td><td>15 May 2026</td><td><span class="fs-status fs-status--red">Open</span></td></tr>
+                <tr><td>F3</td><td>DGA employment contract signed</td><td>Pieter + adviser</td><td>1 Jul 2026</td><td><span class="fs-status fs-status--yellow">Not started</span></td></tr>
+                <tr><td>F4</td><td>Payroll operational + first run</td><td>Adviser</td><td>15 Jul 2026</td><td><span class="fs-status fs-status--yellow">Not started</span></td></tr>
+                <tr><td>F5</td><td>Wealth statement Box 3 for IND</td><td>Adviser</td><td>15 Jul 2026</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
+                <tr><td>F6</td><td>Werkgeversverklaring (IND template)</td><td>Pieter</td><td>at IND submission</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
+                <tr><td>F7</td><td>Share transfer 15% FS-stake to Holding</td><td>Pieter + notary</td><td>end Jun 2026</td><td><span class="fs-status fs-status--yellow">In-progress</span></td></tr>
+                <tr><td>F8</td><td>Activate first invoice Werkmaatschappij &harr; US client</td><td>Pieter</td><td>post-arrival</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
+                <tr><td>F9</td><td>Verify H2-2026 IND minimum-income norm</td><td>Pieter</td><td>Sep 2026</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- WS5 Budget -->
+        <div class="fs-card">
+          <h3 id="ws-budget">05 Budget / Benefits / Insurance (Mila)</h3>
+          <div class="fs-table-wrap">
+            <table class="fs-table">
+              <thead><tr><th class="col-id">ID</th><th>Deliverable</th><th class="col-md">Owner</th><th class="col-md">Deadline</th><th class="col-status">Status</th></tr></thead>
+              <tbody>
+                <tr><td>T1</td><td>Health insurance Gloria + children (FBTO Basis)</td><td>Daan</td><td>wk 25&ndash;30 Jul</td><td><span class="fs-status fs-status--yellow">Not started</span></td></tr>
+                <tr><td>T2</td><td>Box 3 deemed return &harr; KOT toetsingsinkomen?</td><td>Sander</td><td>20 May 2026</td><td><span class="fs-status fs-status--red">Open</span></td></tr>
+                <tr><td>T3</td><td>Gloria ZZP income to unlock IACK threshold</td><td>Sander</td><td>end May 2026</td><td><span class="fs-status fs-status--yellow">Open</span></td></tr>
+                <tr><td>T4</td><td>Kinderbijslag SVB &mdash; checkpoint</td><td>Pieter</td><td>end Sep 2026</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
+                <tr><td>T5</td><td>KOT application via Mijn Toeslagen</td><td>Pieter</td><td>&le;30d after start</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
+                <tr><td>T6</td><td>Toetsingsinkomen 2026 forecast at KOT</td><td>Pieter</td><td>at T5</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
+                <tr><td>T7</td><td>Inboedel + opstal + AVP + travel + legal-aid quotes</td><td>Daan</td><td>1 Jul 2026</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
+                <tr><td>T8</td><td>Energy + water + internet quotes Leiden</td><td>Daan</td><td>1 Jul 2026</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
+                <tr><td>T9</td><td>Gemeentelijke belastingen + waste</td><td>Daan</td><td>post-BRP</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
+                <tr><td>T10</td><td>Verify KOT jaarbeschikking 2026</td><td>Pieter</td><td>Oct/Nov 2026</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- WS6 Car -->
+        <div class="fs-card">
+          <h3 id="ws-car">06 Car / Mobility (Rens)</h3>
+          <div class="fs-table-wrap">
+            <table class="fs-table">
+              <thead><tr><th class="col-id">ID</th><th>Deliverable</th><th class="col-md">Owner</th><th class="col-md">Deadline</th><th class="col-status">Status</th></tr></thead>
+              <tbody>
+                <tr><td>A1</td><td>Car selection + purchase NL (~&euro;22K secondhand)</td><td>Rens (advice) + Pieter</td><td>post-arrival</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
+                <tr><td>A2</td><td>Driving-licence conversion CA &rarr; NL (CBR)</td><td>Daan + Gloria</td><td>&le;185d post-BRP</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
+                <tr><td>A3</td><td>Parking permit Leiden</td><td>Daan</td><td>post-BRP</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- WS7 Health -->
+        <div class="fs-card">
+          <h3 id="ws-health">07 Health: huisarts, tandarts, JGZ (Lior)</h3>
+          <div class="fs-table-wrap">
+            <table class="fs-table">
+              <thead><tr><th class="col-id">ID</th><th>Deliverable</th><th class="col-md">Owner</th><th class="col-md">Deadline</th><th class="col-status">Status</th></tr></thead>
+              <tbody>
+                <tr><td>H1</td><td>Huisarts registration whole family</td><td>Daan</td><td>4 wk post-BRP</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
+                <tr><td>H2</td><td>Tandarts registration whole family</td><td>Daan</td><td>8 wk post-BRP</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
+                <tr><td>H3</td><td>JGZ ZHN consultatiebureau (vaccinations)</td><td>Daan</td><td>direct post-BRP</td><td><span class="fs-status fs-status--yellow">Not started</span></td></tr>
+                <tr><td>H4</td><td>Kraamzorg transition baby</td><td>Daan</td><td>direct post-BRP</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
+                <tr><td>H5</td><td>Eye-health follow-up Pieter</td><td>Daan (mech.)</td><td>Q3 2026</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- WS8 Kitchen -->
+        <div class="fs-card">
+          <h3 id="ws-kitchen">08 Kitchen setup (Kai)</h3>
+          <div class="fs-table-wrap">
+            <table class="fs-table">
+              <thead><tr><th class="col-id">ID</th><th>Deliverable</th><th class="col-md">Owner</th><th class="col-md">Deadline</th><th class="col-status">Status</th></tr></thead>
+              <tbody>
+                <tr><td>C1</td><td>Container arrival &rarr; kitchen unpacking sequence</td><td>Daan</td><td>at delivery</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
+                <tr><td>C2</td><td>White goods + appliances top-up</td><td>Pieter</td><td>Aug&ndash;Oct 2026</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- WS9 Gloria-admin -->
+        <div class="fs-card">
+          <h3 id="ws-gloria">09 Gloria admin</h3>
+          <div class="fs-table-wrap">
+            <table class="fs-table">
+              <thead><tr><th class="col-id">ID</th><th>Deliverable</th><th class="col-md">Owner</th><th class="col-md">Deadline</th><th class="col-status">Status</th></tr></thead>
+              <tbody>
+                <tr><td>G1</td><td>Book KvK appointment Leiden (ZZP)</td><td>Gloria</td><td>wk 28 Jul &ndash; 7 Aug</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
+                <tr><td>G2</td><td>Banking (bunq / Revolut / non-EU flow)</td><td>Daan + Gloria</td><td>post-BSN</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
+                <tr><td>G3</td><td>SIM-only mobile subscription</td><td>Daan + Gloria</td><td>post-BSN</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
+                <tr><td>G4</td><td>Track naturalisation status</td><td>Gloria</td><td>ongoing</td><td><span class="fs-status fs-status--yellow">In-progress</span></td></tr>
+                <tr><td>G5</td><td>DUO inburgeringscursus (Scenario B)</td><td>Gloria</td><td>Q4 2026</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- WS10 School/KDV -->
+        <div class="fs-card">
+          <h3 id="ws-school">10 School / KDV</h3>
+          <div class="fs-table-wrap">
+            <table class="fs-table">
+              <thead><tr><th class="col-id">ID</th><th>Deliverable</th><th class="col-md">Owner</th><th class="col-md">Deadline</th><th class="col-status">Status</th></tr></thead>
+              <tbody>
+                <tr><td>K1</td><td>Daycare shortlist Leiden &mdash; &ge;3 LRK centres</td><td>Pieter</td><td>15 May 2026</td><td><span class="fs-status fs-status--red">Open</span></td></tr>
+                <tr><td>K2</td><td>Waitlist registrations in parallel</td><td>Pieter + Gloria</td><td>22 May 2026</td><td><span class="fs-status fs-status--red">Not started</span></td></tr>
+                <tr><td>K3</td><td>Daycare contract + LRK number documented</td><td>Pieter + Gloria</td><td>15 Aug 2026</td><td><span class="fs-status fs-status--yellow">Not started</span></td></tr>
+                <tr><td>K4</td><td>Primary-school pre-research toddler</td><td>Pieter</td><td>Q4 2026</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ======= 05 OPEN QUESTIONS ======= -->
+      <section class="fs-section-header">
+        <span class="fs-section-header__num">&sect; 05</span>
+        <h2 id="open">Open decisions and questions</h2>
+      </section>
+
+      <div class="fs-table-wrap">
+        <table class="fs-table">
+          <thead><tr><th class="col-id">#</th><th class="col-md">To</th><th>Question</th><th class="col-md">Tracker row</th></tr></thead>
+          <tbody>
+            <tr><td>Q1</td><td>Pieter</td><td>Confirm Gloria's naturalisation route + exact Jan 2026 submission date.</td><td>N1</td></tr>
+            <tr><td>Q2</td><td>Pieter</td><td>IND helpdesk: is the Dec-2025 Canadian long-form birth cert still acceptable at submission Jul/Oct?</td><td>N4</td></tr>
+            <tr><td>Q3</td><td>Pieter</td><td>Choose IND submission date: ~25 Jul / ~25 Aug / ~10 Oct. Tax team recommends ~10 Oct.</td><td>N3</td></tr>
+            <tr><td>Q4</td><td>Pieter</td><td>BV formation status notary (target was 15 Apr) + confirm engagement belastingadviseur.</td><td>F1, F2</td></tr>
+            <tr><td>Q5</td><td>Pieter</td><td>Daycare shortlist Leiden by end of this month due to waitlists.</td><td>K1</td></tr>
+            <tr><td>Q6</td><td>Sander (tax)</td><td>Does Box 3 deemed return count toward KOT toetsingsinkomen? Load-bearing for KOT %.</td><td>T2</td></tr>
+            <tr><td>Q7</td><td>Sander (tax)</td><td>Gloria ZZP income level needed to unlock IACK threshold.</td><td>T3</td></tr>
+            <tr><td>Q8</td><td>Pieter</td><td>SVB peildatum kinderbijslag &mdash; Q3 2026 or Q4? (checkpoint end Sep)</td><td>T4</td></tr>
+            <tr><td>Q9</td><td>Pieter</td><td>Plan temporary housing 20 Jul &rarr; container arrival.</td><td>L6</td></tr>
+            <tr><td>Q10</td><td>Larry &rarr; Rens</td><td>Car selection post-arrival &mdash; activate later in Q3.</td><td>A1</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- ======= 06 DECISIONS ======= -->
+      <section class="fs-section-header">
+        <span class="fs-section-header__num">&sect; 06</span>
+        <h2 id="decisions">Decisions due (Pieter)</h2>
+      </section>
+
+      <div class="fs-table-wrap">
+        <table class="fs-table">
+          <thead><tr><th>Decision</th><th class="col-md">Deadline</th><th>Default recommendation</th></tr></thead>
+          <tbody>
+            <tr><td>Confirm naturalisation route + date &rarr; Scenario A vs B</td><td>15 May 2026</td><td>Answer required</td></tr>
+            <tr><td>Daycare shortlist + waitlists</td><td>15 May 2026</td><td>Take &ge;3 centres in parallel</td></tr>
+            <tr><td>IND submission date</td><td>30 Jun 2026</td><td>~10 Oct 2026 (Sander)</td></tr>
+            <tr><td>Lock DGA salary level for first 6 months</td><td>15 Jun 2026</td><td>&euro;60K/yr (&euro;5,000 gross/month)</td></tr>
+            <tr><td>Have wealth statement prepared</td><td>15 Jul 2026</td><td>Yes, ~&euro;500&ndash;1,500</td></tr>
+            <tr><td>Engagement belastingadviseur</td><td>now</td><td>Engage &mdash; on critical path</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- ======= 07 TEAM ======= -->
+      <section class="fs-section-header">
+        <span class="fs-section-header__num">&sect; 07</span>
+        <h2 id="team">The program team</h2>
+      </section>
+
+      <p>The relocation is coordinated cross-domain. Daan is program manager and owner of this tracker. Domain experts deliver input via the central orchestrator (Larry); Daan folds their deliverables into this single canonical view.</p>
+
+      <dl class="fs-kv">
+        <dt>Daan</dt><dd>Relocation Program Manager &mdash; tracker owner, BRP/BSN, moving logistics, Gloria admin, school/KDV coordination</dd>
+        <dt>Sander</dt><dd>Tax &amp; Financial Planning &mdash; BV structure, DGA salary, IND income criterion, share transfer</dd>
+        <dt>Mila</dt><dd>Personal Finance &mdash; KOT, kinderbijslag, toetsingsinkomen, insurance choice</dd>
+        <dt>Rens</dt><dd>Car &amp; Mobility &mdash; car selection, RDW, parking (post-arrival)</dd>
+        <dt>Lior</dt><dd>Health &amp; Lifestyle &mdash; medical advice, eye-health track (Daan handles the registrations)</dd>
+        <dt>Kai</dt><dd>Kitchen Advisor &mdash; kitchen setup at container arrival</dd>
+        <dt>Immigration utility</dt><dd>One-off vreemdelingenrecht &mdash; residence-permit stappenplan</dd>
+        <dt>Larry</dt><dd>Chief of Staff &mdash; coordinates between team and owner</dd>
+      </dl>
+
+      <div class="fs-callout fs-callout--note">
+        <div class="fs-callout__icon">i</div>
+        <div>
+          <p class="fs-callout__title">Next update</p>
+          <div class="fs-callout__body">
+            <p>Weekly rollup every Friday through end of October 2026 (next: Friday 15 May). After that, first-Friday-of-the-month through Q1 2027. Event-driven updates within 24 hours of a new domain-agent deliverable.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ======= 08 GLOSSARY ======= -->
+      <section class="fs-section-header">
+        <span class="fs-section-header__num">&sect; 08</span>
+        <h2 id="glossary">Glossary &mdash; Dutch terms used in this dashboard</h2>
+      </section>
+
+      <p>This dashboard keeps Dutch terms in Dutch where they are the official names of agencies, taxes, benefits, or legal concepts. The table below explains each one and why it matters for this relocation.</p>
+
+      <div class="fs-table-wrap">
+        <table class="fs-table fs-glossary">
+          <thead><tr><th>Term</th><th>English explanation</th><th>What it does for you</th></tr></thead>
+          <tbody>
+            <tr><td>Antecedentenverklaring</td><td>Background-conduct declaration (IND form 7601)</td><td>Required signed declaration in Gloria's IND application</td></tr>
+            <tr><td>AVP</td><td>Aansprakelijkheidsverzekering Particulieren &mdash; personal liability insurance</td><td>Standard Dutch household coverage for accidental damage to others</td></tr>
+            <tr><td>Belastingadviseur</td><td>Dutch tax adviser</td><td>Engaged to set up DGA payroll, employer's statement, wealth statement</td></tr>
+            <tr><td>Beëdiging</td><td>Oath-taking ceremony at municipality</td><td>Final step of naturalisation if Plan A activates</td></tr>
+            <tr><td>Box 3</td><td>Tax category for taxable wealth (savings + investments)</td><td>Pieter's ~&euro;1M private wealth taxed under deemed-return regime</td></tr>
+            <tr><td>BPM</td><td>Belasting van Personenauto's en Motorrijwielen &mdash; vehicle registration tax</td><td>One-off tax when a car is first registered in NL</td></tr>
+            <tr><td>BRP</td><td>Basisregistratie Personen &mdash; Dutch population register</td><td>First post-arrival action; unlocks BSN, DigiD, all benefits</td></tr>
+            <tr><td>BSN</td><td>Burgerservicenummer &mdash; Dutch citizen service number</td><td>Personal ID number; required for everything administrative</td></tr>
+            <tr><td>BSO</td><td>Buitenschoolse opvang &mdash; out-of-school care</td><td>Relevant when toddler enters groep 1</td></tr>
+            <tr><td>BV</td><td>Besloten vennootschap &mdash; Dutch private limited company</td><td>Holding + Werkmaatschappij being formed for Pieter's business</td></tr>
+            <tr><td>CBR</td><td>Centraal Bureau Rijvaardigheidsbewijzen &mdash; driving-test authority</td><td>Handles licence conversion + medical declaration (Eigen Verklaring)</td></tr>
+            <tr><td>DGA</td><td>Directeur-grootaandeelhouder &mdash; director-major-shareholder</td><td>Pieter's role in his own BV; subject to gebruikelijk-loon rule</td></tr>
+            <tr><td>DigiD</td><td>Dutch government online ID</td><td>Logs into all government portals incl. Mijn Toeslagen, IND</td></tr>
+            <tr><td>DUO</td><td>Dienst Uitvoering Onderwijs &mdash; education executive agency</td><td>Runs the inburgeringscursus</td></tr>
+            <tr><td>Eigenwoning</td><td>Owner-occupied home</td><td>Tax category covering mortgage interest deduction</td></tr>
+            <tr><td>Eigen Verklaring</td><td>CBR health-declaration form</td><td>Mandatory step in Gloria's CA&rarr;NL licence conversion</td></tr>
+            <tr><td>Gebruikelijk loon</td><td>"Customary salary" rule for DGAs</td><td>Forces minimum salary level for owner-directors</td></tr>
+            <tr><td>Gemeente</td><td>Municipality (here: gemeente Leiden)</td><td>Handles BRP, BSN, marriage extracts, parking permits</td></tr>
+            <tr><td>Groep 1</td><td>First year of Dutch primary school (age 4)</td><td>Toddler enters around late 2027</td></tr>
+            <tr><td>Holding</td><td>Holding company (BV form)</td><td>Will hold Pieter's 15% Six Degrees stake + future shares</td></tr>
+            <tr><td>Huisarts</td><td>General practitioner</td><td>Family registers post-BRP; gateway to all NL healthcare</td></tr>
+            <tr><td>IACK</td><td>Inkomensafhankelijke Combinatiekorting &mdash; income-dependent combination tax credit</td><td>Tax break of up to &euro;2,950 for working parents; needs Gloria's ZZP income above threshold</td></tr>
+            <tr><td>Inburgering</td><td>Civic integration</td><td>Mandatory course/exam for non-EU residence-permit holders</td></tr>
+            <tr><td>Inboedel</td><td>Contents insurance</td><td>Covers household belongings</td></tr>
+            <tr><td>IND</td><td>Immigratie- en Naturalisatiedienst &mdash; Immigration and Naturalisation Service</td><td>Decides on residence permits and naturalisation</td></tr>
+            <tr><td>ISL / DIPS</td><td>International schools in the Leiden region</td><td>Pre-research for toddler's primary-school placement</td></tr>
+            <tr><td>Jaarbeschikking</td><td>Annual benefit decision letter</td><td>KOT issues one to confirm full-year amount</td></tr>
+            <tr><td>JGZ</td><td>Jeugdgezondheidszorg &mdash; youth healthcare service</td><td>Runs consultatiebureau (well-baby clinic) for both children</td></tr>
+            <tr><td>Kinderbijslag</td><td>Universal child benefit (paid by SVB)</td><td>~&euro;263&ndash;375 per child per quarter</td></tr>
+            <tr><td>KDV</td><td>Kinderdagverblijf &mdash; childcare centre</td><td>Where toddler/baby goes during the working day</td></tr>
+            <tr><td>KOT</td><td>Kinderopvangtoeslag &mdash; childcare benefit</td><td>Reimburses up to 96% of LRK childcare costs based on income</td></tr>
+            <tr><td>Kraamzorg</td><td>Postnatal maternity care</td><td>Continuity of postpartum care for baby in NL</td></tr>
+            <tr><td>KvK</td><td>Kamer van Koophandel &mdash; Dutch Chamber of Commerce</td><td>Where Gloria registers her ZZP business</td></tr>
+            <tr><td>LRK</td><td>Landelijk Register Kinderopvang &mdash; national childcare register</td><td>Daycare must be LRK-registered for KOT to apply</td></tr>
+            <tr><td>Mijn Toeslagen</td><td>"My Benefits" portal at Belastingdienst</td><td>DigiD-gated portal where KOT, kinderbijslag, etc. are managed</td></tr>
+            <tr><td>MRB</td><td>Motorrijtuigenbelasting &mdash; road tax</td><td>Quarterly tax owed once a car is registered</td></tr>
+            <tr><td>Notaris</td><td>Civil-law notary</td><td>Required to pass deeds for BV formation + share transfers</td></tr>
+            <tr><td>Opstal</td><td>Building insurance</td><td>Covers structural damage to the house</td></tr>
+            <tr><td>Peildatum</td><td>Reference (cut-off) date</td><td>SVB uses peildatum to determine which quarter pays kinderbijslag first</td></tr>
+            <tr><td>RDW</td><td>Rijksdienst voor het Wegverkeer &mdash; vehicle authority</td><td>Handles vehicle registration, APK, ownership transfers</td></tr>
+            <tr><td>RWN</td><td>Rijkswet op het Nederlanderschap &mdash; Dutch nationality act</td><td>Governs naturalisation routes (e.g. art. 8 &sect;4)</td></tr>
+            <tr><td>SVB</td><td>Sociale Verzekeringsbank &mdash; social security agency</td><td>Pays kinderbijslag and AOW pension</td></tr>
+            <tr><td>Tandarts</td><td>Dentist</td><td>Family registers within ~8 weeks of BRP</td></tr>
+            <tr><td>Toetsingsinkomen</td><td>Assessment income (Belastingdienst)</td><td>Determines KOT %, IACK eligibility, etc.</td></tr>
+            <tr><td>Verhuisboedel-vrijstelling</td><td>Household-goods customs exemption</td><td>Avoids VAT/import duties on the HK&rarr;NL container</td></tr>
+            <tr><td>Vreemdelingenrecht</td><td>Dutch immigration law</td><td>Body of law governing IND processes</td></tr>
+            <tr><td>Werkgeversverklaring</td><td>Employer's statement (IND template)</td><td>Werkmaatschappij signs on Pieter's behalf at IND submission</td></tr>
+            <tr><td>Werkmaatschappij</td><td>Operating company (BV)</td><td>Invoices Six Degrees &euro;144K/yr; pays Pieter DGA salary</td></tr>
+            <tr><td>WOZ</td><td>Waardering Onroerende Zaken &mdash; official property valuation</td><td>Used for municipal taxes + Box 1 own-home calculation</td></tr>
+            <tr><td>ZZP</td><td>Zelfstandige zonder personeel &mdash; solo self-employed</td><td>Gloria's planned status post-arrival</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="fs-footer">
+    <div class="fs-container fs-footer-inner">
+      <span>Relocation Dashboard &middot; Pieter &amp; Gloria</span>
+      <span>Last updated: 7 May 2026</span>
+      <span class="fs-meta">Live at: verhuizen.beleggenvoor18.com</span>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>
