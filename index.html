@@ -44,6 +44,7 @@
   --fs-space-4: 1rem; --fs-space-5: 1.5rem; --fs-space-6: 2rem;
   --fs-space-7: 3rem; --fs-space-8: 4rem; --fs-space-9: 6rem;
   --fs-wide: 1440px;            /* widened for desktop dashboard density */
+  --fs-wide-stack: 1440px;      /* full-width container for stacked workstream tables */
   --fs-gutter: clamp(1rem, 2.5vw, 2rem);
   --fs-ease: cubic-bezier(0.2, 0.6, 0.2, 1);
 }
@@ -514,6 +515,18 @@ code, kbd, samp {
 }
 .fs-card h3 { margin-top: 0; }
 .fs-card .fs-table-wrap { margin-top: 0.4rem; border-top-width: 1px; }
+/* Stacked workstreams — single column, full-width, with wider Update column */
+.fs-ws-stack {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--fs-space-5);
+}
+.fs-ws-stack .fs-card { padding: 0.95rem 1.1rem 0.55rem; }
+.fs-ws-stack .fs-table .col-update { width: 26%; min-width: 12rem; color: var(--fs-text-muted); font-style: italic; }
+.fs-ws-stack .fs-table .col-update--filled { color: var(--fs-text); font-style: normal; }
+@media (min-width: 1024px) {
+  .fs-ws-stack table.fs-table { min-width: 0; }
+}
 .fs-card__caption {
   font-size: 0.7rem;
   color: var(--fs-text-faint);
@@ -663,7 +676,7 @@ hr, .fs-rule {
       <a class="fs-wordmark" href="#">Relocation<span class="fs-wordmark__sub">Pieter &amp; Gloria</span></a>
       <nav class="fs-header-meta">
         <span class="fs-header-meta__hide-sm">Live dashboard</span>
-        <span>Last updated 7 May 2026</span>
+        <span>Last updated 7 May 2026 (rev 3)</span>
         <span class="fs-header-meta__hide-sm">HK &rarr; Leiden &middot; 20 Jul 2026</span>
       </nav>
     </div>
@@ -697,7 +710,7 @@ hr, .fs-rule {
             <div><dt>Move date</dt><dd>20 July 2026</dd></div>
             <div><dt>Destination</dt><dd>Leiden, Netherlands</dd></div>
             <div><dt>Program manager</dt><dd>Daan</dd></div>
-            <div><dt>Last updated</dt><dd>7 May 2026</dd></div>
+            <div><dt>Last updated</dt><dd>7 May 2026 (rev 3)</dd></div>
             <div><dt>Cadence</dt><dd>Weekly Fri rollup</dd></div>
             <div><dt>Next rollup</dt><dd>15 May 2026</dd></div>
           </dl>
@@ -714,6 +727,8 @@ hr, .fs-rule {
       </section>
 
       <p>Tracker v1 is live. The ten workstreams are laid out and the critical path is mapped: BRP &rarr; BSN &rarr; DigiD &rarr; KvK Gloria &rarr; daycare contract &rarr; KOT &rarr; BV payroll &rarr; IND submission. The tax-team recommendation is to shift the IND submission to ~10 October for a stronger dossier; Pieter decides by 30 June. Two blockers are open to the tax team (Box 3 toetsingsinkomen; ZZP threshold for IACK) and one to Pieter (route and date of the January 2026 naturalisation application). The May priority is the daycare shortlist Leiden &mdash; waitlists are tight, late availability shifts the entire KOT window.</p>
+
+      <p><strong>Rev 3 update (7 May 2026)</strong> &mdash; (1) Workstream tables stacked full-width with new <em>Update</em> column. (2) L6 temporary housing: <strong>not needed</strong>, family arrives at own residence in Leiden. (3) N2 apostille on Canadian birth cert: verified still required &mdash; Canada joined the Hague Apostille Convention on 11 January 2024, so apostille (not consular legalisation) is the correct form, but it is still mandatory for IND + BRP. (4) A3 Leiden parking permit removed (not needed); new row A4 added for car insurance, with cross-domain flag to Mila for WA / WA+ / Casco recommendation.</p>
 
       <!-- ======= 02 DASHBOARD: 3-COLUMN OVERVIEW ======= -->
       <section class="fs-section-header">
@@ -871,7 +886,7 @@ hr, .fs-rule {
         </div>
         <div class="fs-card">
           <h3>20 July 2026 &middot; arrival</h3>
-          <p>Flight HK &rarr; NL, move into Leiden home. Gloria enters visa-free on the Canadian passport (Schengen 90/180). Temporary housing until container arrives. First payroll run Werkmaatschappij targeted 15 July or the week after.</p>
+          <p>Flight HK &rarr; NL, move into the family's own residence in Leiden (no temporary housing required). Gloria enters visa-free on the Canadian passport (Schengen 90/180). First payroll run Werkmaatschappij targeted 15 July or the week after.</p>
         </div>
         <div class="fs-card">
           <h3>Wk 21&ndash;25 Jul &middot; BRP</h3>
@@ -905,21 +920,21 @@ hr, .fs-rule {
         <h2 id="workstreams">Workstreams &mdash; deliverables, owners, deadlines</h2>
       </section>
 
-      <div class="fs-dash-grid-2">
+      <div class="fs-ws-stack">
 
         <!-- WS1 Logistics -->
         <div class="fs-card">
           <h3 id="ws-logistics">01 Moving logistics</h3>
           <div class="fs-table-wrap">
             <table class="fs-table">
-              <thead><tr><th class="col-id">ID</th><th>Deliverable</th><th class="col-md">Owner</th><th class="col-md">Deadline</th><th class="col-status">Status</th></tr></thead>
+              <thead><tr><th class="col-id">ID</th><th>Deliverable</th><th class="col-md">Owner</th><th class="col-md">Deadline</th><th class="col-status">Status</th><th class="col-update">Update</th></tr></thead>
               <tbody>
-                <tr><td>L1</td><td>Mover quotes HK&rarr;Rotterdam (Crown / Allied / Asian Tigers / Santa Fe / Voerman)</td><td>Daan</td><td>22 May 2026</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
-                <tr><td>L2</td><td>Volume estimate + packing-window</td><td>Daan</td><td>5 Jun 2026</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
-                <tr><td>L3</td><td>Inventory list + customs Verhuisboedel-vrijstelling</td><td>Daan + Pieter</td><td>30 Jun 2026</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
-                <tr><td>L4</td><td>Container pickup HK</td><td>Daan</td><td>~10 Jul 2026</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
-                <tr><td>L5</td><td>Container arrival Rotterdam + delivery Leiden</td><td>Daan</td><td>Aug&ndash;Oct 2026</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
-                <tr><td>L6</td><td>Temporary housing on arrival</td><td>Pieter</td><td>1 Jul 2026</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
+                <tr><td>L1</td><td>Mover quotes HK&rarr;Rotterdam (Crown / Allied / Asian Tigers / Santa Fe / Voerman)</td><td>Daan</td><td>22 May 2026</td><td><span class="fs-status fs-status--green">Not started</span></td><td>&mdash;</td></tr>
+                <tr><td>L2</td><td>Volume estimate + packing-window</td><td>Daan</td><td>5 Jun 2026</td><td><span class="fs-status fs-status--green">Not started</span></td><td>&mdash;</td></tr>
+                <tr><td>L3</td><td>Inventory list + customs Verhuisboedel-vrijstelling</td><td>Daan + Pieter</td><td>30 Jun 2026</td><td><span class="fs-status fs-status--green">Not started</span></td><td>&mdash;</td></tr>
+                <tr><td>L4</td><td>Container pickup HK</td><td>Daan</td><td>~10 Jul 2026</td><td><span class="fs-status fs-status--green">Not started</span></td><td>&mdash;</td></tr>
+                <tr><td>L5</td><td>Container arrival Rotterdam + delivery Leiden</td><td>Daan</td><td>Aug&ndash;Oct 2026</td><td><span class="fs-status fs-status--green">Not started</span></td><td>&mdash;</td></tr>
+                <tr><td>L6</td><td>Temporary housing on arrival</td><td>Pieter</td><td>n/a</td><td><span class="fs-status fs-status--green">Done / N-A</span></td><td class="col-update--filled">Own residence in Leiden ready at arrival &mdash; no temporary housing needed (confirmed Pieter 7 May 2026).</td></tr>
               </tbody>
             </table>
           </div>
@@ -930,14 +945,14 @@ hr, .fs-rule {
           <h3 id="ws-brp">02 BRP / BSN / DigiD</h3>
           <div class="fs-table-wrap">
             <table class="fs-table">
-              <thead><tr><th class="col-id">ID</th><th>Deliverable</th><th class="col-md">Owner</th><th class="col-md">Deadline</th><th class="col-status">Status</th></tr></thead>
+              <thead><tr><th class="col-id">ID</th><th>Deliverable</th><th class="col-md">Owner</th><th class="col-md">Deadline</th><th class="col-status">Status</th><th class="col-update">Update</th></tr></thead>
               <tbody>
-                <tr><td>B1</td><td>Book BRP appointment gemeente Leiden</td><td>Pieter</td><td>1 Jul 2026</td><td><span class="fs-status fs-status--yellow">Not started</span></td></tr>
-                <tr><td>B2</td><td>Document-pack assembly</td><td>Daan + Pieter</td><td>15 Jul 2026</td><td><span class="fs-status fs-status--yellow">In-progress</span></td></tr>
-                <tr><td>B3</td><td>BRP registration in person</td><td>Family</td><td>&le;25 Jul 2026</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
-                <tr><td>B4</td><td>BSN issued (Gloria + children)</td><td>Gemeente Leiden</td><td>at BRP</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
-                <tr><td>B5</td><td>DigiD Gloria activated</td><td>Gloria</td><td>wk 25&ndash;31 Jul</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
-                <tr><td>B6</td><td>Mijn Toeslagen account ready</td><td>Pieter</td><td>1 Aug 2026</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
+                <tr><td>B1</td><td>Book BRP appointment gemeente Leiden</td><td>Pieter</td><td>1 Jul 2026</td><td><span class="fs-status fs-status--yellow">Not started</span></td><td>&mdash;</td></tr>
+                <tr><td>B2</td><td>Document-pack assembly</td><td>Daan + Pieter</td><td>15 Jul 2026</td><td><span class="fs-status fs-status--yellow">In-progress</span></td><td class="col-update--filled">Apostille on Gloria's Canadian birth cert remains required (Canada joined Hague Apostille Convention 11 Jan 2024 &mdash; apostille replaces consular legalisation but is still mandatory for IND + BRP).</td></tr>
+                <tr><td>B3</td><td>BRP registration in person</td><td>Family</td><td>&le;25 Jul 2026</td><td><span class="fs-status fs-status--green">Not started</span></td><td>&mdash;</td></tr>
+                <tr><td>B4</td><td>BSN issued (Gloria + children)</td><td>Gemeente Leiden</td><td>at BRP</td><td><span class="fs-status fs-status--green">Not started</span></td><td>&mdash;</td></tr>
+                <tr><td>B5</td><td>DigiD Gloria activated</td><td>Gloria</td><td>wk 25&ndash;31 Jul</td><td><span class="fs-status fs-status--green">Not started</span></td><td>&mdash;</td></tr>
+                <tr><td>B6</td><td>Mijn Toeslagen account ready</td><td>Pieter</td><td>1 Aug 2026</td><td><span class="fs-status fs-status--green">Not started</span></td><td>&mdash;</td></tr>
               </tbody>
             </table>
           </div>
@@ -948,19 +963,19 @@ hr, .fs-rule {
           <h3 id="ws-ind">03 IND / Residence permit (Scenario B)</h3>
           <div class="fs-table-wrap">
             <table class="fs-table">
-              <thead><tr><th class="col-id">ID</th><th>Deliverable</th><th class="col-md">Owner</th><th class="col-md">Deadline</th><th class="col-status">Status</th></tr></thead>
+              <thead><tr><th class="col-id">ID</th><th>Deliverable</th><th class="col-md">Owner</th><th class="col-md">Deadline</th><th class="col-status">Status</th><th class="col-update">Update</th></tr></thead>
               <tbody>
-                <tr><td>N1</td><td>Confirm naturalisation route + Jan 2026 submission date</td><td>Pieter</td><td>15 May 2026</td><td><span class="fs-status fs-status--red">Open</span></td></tr>
-                <tr><td>N2</td><td>Apostille on Canadian long-form birth cert</td><td>Gloria</td><td>1 Jun 2026</td><td><span class="fs-status fs-status--yellow">Not started</span></td></tr>
-                <tr><td>N3</td><td>Choose IND submission date (25 Jul / 25 Aug / 10 Oct)</td><td>Pieter</td><td>30 Jun 2026</td><td><span class="fs-status fs-status--yellow">Not started</span></td></tr>
-                <tr><td>N4</td><td>IND helpdesk: Dec-2025 birth cert still acceptable?</td><td>Pieter</td><td>20 May 2026</td><td><span class="fs-status fs-status--yellow">Not started</span></td></tr>
-                <tr><td>N5</td><td>International marriage-cert extract (NL)</td><td>Pieter</td><td>1 Jul 2026</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
-                <tr><td>N6</td><td>Antecedentenverklaring signed (form 7601)</td><td>Gloria</td><td>1 Jul 2026</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
-                <tr><td>N7</td><td>IND form 7518 pre-filled</td><td>Pieter</td><td>15 Jul 2026</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
-                <tr><td>N8</td><td>IND application submitted (Plan B)</td><td>Pieter (sponsor)</td><td>~10 Oct 2026</td><td><span class="fs-status fs-status--yellow">Not started</span></td></tr>
-                <tr><td>N9</td><td>Biometrics + residence-sticker</td><td>Gloria</td><td>~4 wk after N8</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
-                <tr><td>N10</td><td>Pick up residence document type I</td><td>Gloria</td><td>~Jan 2027</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
-                <tr><td>N11</td><td>If Scenario A: beëdiging at gemeente</td><td>Pieter + Gloria</td><td>on arrival</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
+                <tr><td>N1</td><td>Confirm naturalisation route + Jan 2026 submission date</td><td>Pieter</td><td>15 May 2026</td><td><span class="fs-status fs-status--red">Open</span></td><td class="col-update--filled">Awaiting Pieter: route (art. 8 &sect;4 RWN?) + exact submission date &mdash; determines Scenario A vs B.</td></tr>
+                <tr><td>N2</td><td>Apostille on Canadian long-form birth cert</td><td>Gloria</td><td>1 Jun 2026</td><td><span class="fs-status fs-status--yellow">In-progress &mdash; verifying</span></td><td class="col-update--filled">Verified 7 May 2026: Canada joined Hague Apostille Convention 11 Jan 2024. Apostille is now the *form* of legalisation but is still required (replaces old consular route). IND.nl: foreign documents must be legalised; for Apostille-Convention countries this means an apostille. Gloria obtains apostille via Canadian competent authority (province of issue, e.g. Service Ontario / Service Alberta &mdash; or Global Affairs Canada for federal). Action stands.</td></tr>
+                <tr><td>N3</td><td>Choose IND submission date (25 Jul / 25 Aug / 10 Oct)</td><td>Pieter</td><td>30 Jun 2026</td><td><span class="fs-status fs-status--yellow">Not started</span></td><td class="col-update--filled">Sander recommends ~10 Oct for strongest dossier (3 payslips + wealth statement).</td></tr>
+                <tr><td>N4</td><td>IND helpdesk: Dec-2025 birth cert still acceptable?</td><td>Pieter</td><td>20 May 2026</td><td><span class="fs-status fs-status--yellow">Not started</span></td><td class="col-update--filled">IND policy: birth-cert age usually not material (data is "definite") &mdash; but confirm by phone given borderline 7-mnd validity at Jul/Oct submission.</td></tr>
+                <tr><td>N5</td><td>International marriage-cert extract (NL)</td><td>Pieter</td><td>1 Jul 2026</td><td><span class="fs-status fs-status--green">Not started</span></td><td>&mdash;</td></tr>
+                <tr><td>N6</td><td>Antecedentenverklaring signed (form 7601)</td><td>Gloria</td><td>1 Jul 2026</td><td><span class="fs-status fs-status--green">Not started</span></td><td>&mdash;</td></tr>
+                <tr><td>N7</td><td>IND form 7518 pre-filled</td><td>Pieter</td><td>15 Jul 2026</td><td><span class="fs-status fs-status--green">Not started</span></td><td>&mdash;</td></tr>
+                <tr><td>N8</td><td>IND application submitted (Plan B)</td><td>Pieter (sponsor)</td><td>~10 Oct 2026</td><td><span class="fs-status fs-status--yellow">Not started</span></td><td>&mdash;</td></tr>
+                <tr><td>N9</td><td>Biometrics + residence-sticker</td><td>Gloria</td><td>~4 wk after N8</td><td><span class="fs-status fs-status--green">Not started</span></td><td>&mdash;</td></tr>
+                <tr><td>N10</td><td>Pick up residence document type I</td><td>Gloria</td><td>~Jan 2027</td><td><span class="fs-status fs-status--green">Not started</span></td><td>&mdash;</td></tr>
+                <tr><td>N11</td><td>If Scenario A: beëdiging at gemeente</td><td>Pieter + Gloria</td><td>on arrival</td><td><span class="fs-status fs-status--green">Not started</span></td><td>&mdash;</td></tr>
               </tbody>
             </table>
           </div>
@@ -971,17 +986,17 @@ hr, .fs-rule {
           <h3 id="ws-tax">04 BV / Tax (Sander)</h3>
           <div class="fs-table-wrap">
             <table class="fs-table">
-              <thead><tr><th class="col-id">ID</th><th>Deliverable</th><th class="col-md">Owner</th><th class="col-md">Deadline</th><th class="col-status">Status</th></tr></thead>
+              <thead><tr><th class="col-id">ID</th><th>Deliverable</th><th class="col-md">Owner</th><th class="col-md">Deadline</th><th class="col-status">Status</th><th class="col-update">Update</th></tr></thead>
               <tbody>
-                <tr><td>F1</td><td>Confirm BV formation status notary</td><td>Pieter</td><td>1 Jun 2026</td><td><span class="fs-status fs-status--yellow">In-progress</span></td></tr>
-                <tr><td>F2</td><td>Confirm engagement belastingadviseur</td><td>Pieter</td><td>15 May 2026</td><td><span class="fs-status fs-status--red">Open</span></td></tr>
-                <tr><td>F3</td><td>DGA employment contract signed</td><td>Pieter + adviser</td><td>1 Jul 2026</td><td><span class="fs-status fs-status--yellow">Not started</span></td></tr>
-                <tr><td>F4</td><td>Payroll operational + first run</td><td>Adviser</td><td>15 Jul 2026</td><td><span class="fs-status fs-status--yellow">Not started</span></td></tr>
-                <tr><td>F5</td><td>Wealth statement Box 3 for IND</td><td>Adviser</td><td>15 Jul 2026</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
-                <tr><td>F6</td><td>Werkgeversverklaring (IND template)</td><td>Pieter</td><td>at IND submission</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
-                <tr><td>F7</td><td>Share transfer 15% FS-stake to Holding</td><td>Pieter + notary</td><td>end Jun 2026</td><td><span class="fs-status fs-status--yellow">In-progress</span></td></tr>
-                <tr><td>F8</td><td>Activate first invoice Werkmaatschappij &harr; US client</td><td>Pieter</td><td>post-arrival</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
-                <tr><td>F9</td><td>Verify H2-2026 IND minimum-income norm</td><td>Pieter</td><td>Sep 2026</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
+                <tr><td>F1</td><td>Confirm BV formation status notary</td><td>Pieter</td><td>1 Jun 2026</td><td><span class="fs-status fs-status--yellow">In-progress</span></td><td class="col-update--filled">Notary target was 15 Apr; slip-status to be confirmed by Pieter.</td></tr>
+                <tr><td>F2</td><td>Confirm engagement belastingadviseur</td><td>Pieter</td><td>15 May 2026</td><td><span class="fs-status fs-status--red">Open</span></td><td class="col-update--filled">Critical-path dependency for payroll + IND wealth statement.</td></tr>
+                <tr><td>F3</td><td>DGA employment contract signed</td><td>Pieter + adviser</td><td>1 Jul 2026</td><td><span class="fs-status fs-status--yellow">Not started</span></td><td>&mdash;</td></tr>
+                <tr><td>F4</td><td>Payroll operational + first run</td><td>Adviser</td><td>15 Jul 2026</td><td><span class="fs-status fs-status--yellow">Not started</span></td><td>&mdash;</td></tr>
+                <tr><td>F5</td><td>Wealth statement Box 3 for IND</td><td>Adviser</td><td>15 Jul 2026</td><td><span class="fs-status fs-status--green">Not started</span></td><td>&mdash;</td></tr>
+                <tr><td>F6</td><td>Werkgeversverklaring (IND template)</td><td>Pieter</td><td>at IND submission</td><td><span class="fs-status fs-status--green">Not started</span></td><td>&mdash;</td></tr>
+                <tr><td>F7</td><td>Share transfer 15% FS-stake to Holding</td><td>Pieter + notary</td><td>end Jun 2026</td><td><span class="fs-status fs-status--yellow">In-progress</span></td><td class="col-update--filled">Awaiting valuation + HK lawyer engagement.</td></tr>
+                <tr><td>F8</td><td>Activate first invoice Werkmaatschappij &harr; US client</td><td>Pieter</td><td>post-arrival</td><td><span class="fs-status fs-status--green">Not started</span></td><td>&mdash;</td></tr>
+                <tr><td>F9</td><td>Verify H2-2026 IND minimum-income norm</td><td>Pieter</td><td>Sep 2026</td><td><span class="fs-status fs-status--green">Not started</span></td><td>&mdash;</td></tr>
               </tbody>
             </table>
           </div>
@@ -992,18 +1007,18 @@ hr, .fs-rule {
           <h3 id="ws-budget">05 Budget / Benefits / Insurance (Mila)</h3>
           <div class="fs-table-wrap">
             <table class="fs-table">
-              <thead><tr><th class="col-id">ID</th><th>Deliverable</th><th class="col-md">Owner</th><th class="col-md">Deadline</th><th class="col-status">Status</th></tr></thead>
+              <thead><tr><th class="col-id">ID</th><th>Deliverable</th><th class="col-md">Owner</th><th class="col-md">Deadline</th><th class="col-status">Status</th><th class="col-update">Update</th></tr></thead>
               <tbody>
-                <tr><td>T1</td><td>Health insurance Gloria + children (FBTO Basis)</td><td>Daan</td><td>wk 25&ndash;30 Jul</td><td><span class="fs-status fs-status--yellow">Not started</span></td></tr>
-                <tr><td>T2</td><td>Box 3 deemed return &harr; KOT toetsingsinkomen?</td><td>Sander</td><td>20 May 2026</td><td><span class="fs-status fs-status--red">Open</span></td></tr>
-                <tr><td>T3</td><td>Gloria ZZP income to unlock IACK threshold</td><td>Sander</td><td>end May 2026</td><td><span class="fs-status fs-status--yellow">Open</span></td></tr>
-                <tr><td>T4</td><td>Kinderbijslag SVB &mdash; checkpoint</td><td>Pieter</td><td>end Sep 2026</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
-                <tr><td>T5</td><td>KOT application via Mijn Toeslagen</td><td>Pieter</td><td>&le;30d after start</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
-                <tr><td>T6</td><td>Toetsingsinkomen 2026 forecast at KOT</td><td>Pieter</td><td>at T5</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
-                <tr><td>T7</td><td>Inboedel + opstal + AVP + travel + legal-aid quotes</td><td>Daan</td><td>1 Jul 2026</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
-                <tr><td>T8</td><td>Energy + water + internet quotes Leiden</td><td>Daan</td><td>1 Jul 2026</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
-                <tr><td>T9</td><td>Gemeentelijke belastingen + waste</td><td>Daan</td><td>post-BRP</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
-                <tr><td>T10</td><td>Verify KOT jaarbeschikking 2026</td><td>Pieter</td><td>Oct/Nov 2026</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
+                <tr><td>T1</td><td>Health insurance Gloria + children (FBTO Basis)</td><td>Daan</td><td>wk 25&ndash;30 Jul</td><td><span class="fs-status fs-status--yellow">Not started</span></td><td>&mdash;</td></tr>
+                <tr><td>T2</td><td>Box 3 deemed return &harr; KOT toetsingsinkomen?</td><td>Sander</td><td>20 May 2026</td><td><span class="fs-status fs-status--red">Open</span></td><td class="col-update--filled">Load-bearing for KOT %. Awaiting Sander's analysis.</td></tr>
+                <tr><td>T3</td><td>Gloria ZZP income to unlock IACK threshold</td><td>Sander</td><td>end May 2026</td><td><span class="fs-status fs-status--yellow">Open</span></td><td class="col-update--filled">Threshold &euro;6,239; weighed against DGA-salary alignment. Awaiting Sander.</td></tr>
+                <tr><td>T4</td><td>Kinderbijslag SVB &mdash; checkpoint</td><td>Pieter</td><td>end Sep 2026</td><td><span class="fs-status fs-status--green">Not started</span></td><td>&mdash;</td></tr>
+                <tr><td>T5</td><td>KOT application via Mijn Toeslagen</td><td>Pieter</td><td>&le;30d after start</td><td><span class="fs-status fs-status--green">Not started</span></td><td>&mdash;</td></tr>
+                <tr><td>T6</td><td>Toetsingsinkomen 2026 forecast at KOT</td><td>Pieter</td><td>at T5</td><td><span class="fs-status fs-status--green">Not started</span></td><td>&mdash;</td></tr>
+                <tr><td>T7</td><td>Inboedel + opstal + AVP + travel + legal-aid quotes</td><td>Daan</td><td>1 Jul 2026</td><td><span class="fs-status fs-status--green">Not started</span></td><td>&mdash;</td></tr>
+                <tr><td>T8</td><td>Energy + water + internet quotes Leiden</td><td>Daan</td><td>1 Jul 2026</td><td><span class="fs-status fs-status--green">Not started</span></td><td>&mdash;</td></tr>
+                <tr><td>T9</td><td>Gemeentelijke belastingen + waste</td><td>Daan</td><td>post-BRP</td><td><span class="fs-status fs-status--green">Not started</span></td><td>&mdash;</td></tr>
+                <tr><td>T10</td><td>Verify KOT jaarbeschikking 2026</td><td>Pieter</td><td>Oct/Nov 2026</td><td><span class="fs-status fs-status--green">Not started</span></td><td>&mdash;</td></tr>
               </tbody>
             </table>
           </div>
@@ -1014,12 +1029,13 @@ hr, .fs-rule {
           <h3 id="ws-car">06 Car / Mobility (Rens)</h3>
           <div class="fs-table-wrap">
             <table class="fs-table">
-              <thead><tr><th class="col-id">ID</th><th>Deliverable</th><th class="col-md">Owner</th><th class="col-md">Deadline</th><th class="col-status">Status</th></tr></thead>
+              <thead><tr><th class="col-id">ID</th><th>Deliverable</th><th class="col-md">Owner</th><th class="col-md">Deadline</th><th class="col-status">Status</th><th class="col-update">Update</th></tr></thead>
               <tbody>
-                <tr><td>A1</td><td>Car selection + purchase NL (~&euro;22K secondhand)</td><td>Rens (advice) + Pieter</td><td>post-arrival</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
-                <tr><td>A2</td><td>Driving-licence conversion Gloria HK &rarr; NL &mdash; HK is not an RDW aangewezen land, so route is CBR Gezondheidsverklaring (&euro;46.90) + theory + practical exam + gemeente Leiden issuance (&euro;53.65). 185-day post-BRP deadline applies to driving on the HK licence.</td><td>Daan + Gloria</td><td>&le;185d post-BRP</td><td><span class="fs-status fs-status--yellow">Not started</span></td></tr>
-                <tr><td>A2-OPEN</td><td>[OPEN &mdash; for Pieter]: confirm Gloria's HK licence category + issue date; check whether she also holds a licence from a designated jurisdiction (Alberta / Qu&eacute;bec are aangewezen) that would bypass CBR exams.</td><td>Pieter</td><td>22 May 2026</td><td><span class="fs-status fs-status--red">Not started</span></td></tr>
-                <tr><td>A3</td><td>Parking permit Leiden</td><td>Daan</td><td>post-BRP</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
+                <tr><td>A1</td><td>Car selection + purchase NL (~&euro;22K secondhand)</td><td>Rens (advice) + Pieter</td><td>post-arrival</td><td><span class="fs-status fs-status--green">Not started</span></td><td>&mdash;</td></tr>
+                <tr><td>A2</td><td>Driving-licence conversion Gloria HK &rarr; NL &mdash; HK is not an RDW aangewezen land, so route is CBR Gezondheidsverklaring (&euro;46.90) + theory + practical exam + gemeente Leiden issuance (&euro;53.65). 185-day post-BRP deadline applies to driving on the HK licence.</td><td>Daan + Gloria</td><td>&le;185d post-BRP</td><td><span class="fs-status fs-status--yellow">Not started</span></td><td class="col-update--filled">Open: confirm whether Gloria also holds an Alberta/Qu&eacute;bec licence (designated &mdash; would bypass exams).</td></tr>
+                <tr><td>A2-OPEN</td><td>[OPEN &mdash; for Pieter]: confirm Gloria's HK licence category + issue date; check whether she also holds a licence from a designated jurisdiction (Alberta / Qu&eacute;bec are aangewezen) that would bypass CBR exams.</td><td>Pieter</td><td>22 May 2026</td><td><span class="fs-status fs-status--red">Not started</span></td><td>&mdash;</td></tr>
+                <tr><td>A3</td><td>Parking permit Leiden</td><td>&mdash;</td><td>n/a</td><td><span class="fs-status fs-status--green">Done / N-A</span></td><td class="col-update--filled">Removed 7 May 2026 &mdash; not needed (own driveway / no permit zone). Confirmed by Pieter.</td></tr>
+                <tr><td>A4</td><td>Car insurance Gloria + Pieter (WA / WA+ / Casco selection &amp; admin)</td><td>Mila (advice) + Daan (admin)</td><td>day of first drive in NL (statutory)</td><td><span class="fs-status fs-status--yellow">Not started</span></td><td class="col-update--filled">Added 7 May 2026. [OPEN &mdash; for Mila: WA / WA+ / Casco recommendation based on car choice + risk profile.] Depends on A1 (car acquisition).</td></tr>
               </tbody>
             </table>
           </div>
@@ -1030,13 +1046,13 @@ hr, .fs-rule {
           <h3 id="ws-health">07 Health: huisarts, tandarts, JGZ (Lior)</h3>
           <div class="fs-table-wrap">
             <table class="fs-table">
-              <thead><tr><th class="col-id">ID</th><th>Deliverable</th><th class="col-md">Owner</th><th class="col-md">Deadline</th><th class="col-status">Status</th></tr></thead>
+              <thead><tr><th class="col-id">ID</th><th>Deliverable</th><th class="col-md">Owner</th><th class="col-md">Deadline</th><th class="col-status">Status</th><th class="col-update">Update</th></tr></thead>
               <tbody>
-                <tr><td>H1</td><td>Huisarts registration whole family</td><td>Daan</td><td>4 wk post-BRP</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
-                <tr><td>H2</td><td>Tandarts registration whole family</td><td>Daan</td><td>8 wk post-BRP</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
-                <tr><td>H3</td><td>JGZ ZHN consultatiebureau (vaccinations)</td><td>Daan</td><td>direct post-BRP</td><td><span class="fs-status fs-status--yellow">Not started</span></td></tr>
-                <tr><td>H4</td><td>Kraamzorg transition baby</td><td>Daan</td><td>direct post-BRP</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
-                <tr><td>H5</td><td>Eye-health follow-up Pieter</td><td>Daan (mech.)</td><td>Q3 2026</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
+                <tr><td>H1</td><td>Huisarts registration whole family</td><td>Daan</td><td>4 wk post-BRP</td><td><span class="fs-status fs-status--green">Not started</span></td><td>&mdash;</td></tr>
+                <tr><td>H2</td><td>Tandarts registration whole family</td><td>Daan</td><td>8 wk post-BRP</td><td><span class="fs-status fs-status--green">Not started</span></td><td>&mdash;</td></tr>
+                <tr><td>H3</td><td>JGZ ZHN consultatiebureau (vaccinations)</td><td>Daan</td><td>direct post-BRP</td><td><span class="fs-status fs-status--yellow">Not started</span></td><td class="col-update--filled">Time-critical: vaccination schedule must not break.</td></tr>
+                <tr><td>H4</td><td>Kraamzorg transition baby</td><td>Daan</td><td>direct post-BRP</td><td><span class="fs-status fs-status--green">Not started</span></td><td>&mdash;</td></tr>
+                <tr><td>H5</td><td>Eye-health follow-up Pieter</td><td>Daan (mech.)</td><td>Q3 2026</td><td><span class="fs-status fs-status--green">Not started</span></td><td>&mdash;</td></tr>
               </tbody>
             </table>
           </div>
@@ -1047,10 +1063,10 @@ hr, .fs-rule {
           <h3 id="ws-kitchen">08 Kitchen setup (Kai)</h3>
           <div class="fs-table-wrap">
             <table class="fs-table">
-              <thead><tr><th class="col-id">ID</th><th>Deliverable</th><th class="col-md">Owner</th><th class="col-md">Deadline</th><th class="col-status">Status</th></tr></thead>
+              <thead><tr><th class="col-id">ID</th><th>Deliverable</th><th class="col-md">Owner</th><th class="col-md">Deadline</th><th class="col-status">Status</th><th class="col-update">Update</th></tr></thead>
               <tbody>
-                <tr><td>C1</td><td>Container arrival &rarr; kitchen unpacking sequence</td><td>Daan</td><td>at delivery</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
-                <tr><td>C2</td><td>White goods + appliances top-up</td><td>Pieter</td><td>Aug&ndash;Oct 2026</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
+                <tr><td>C1</td><td>Container arrival &rarr; kitchen unpacking sequence</td><td>Daan</td><td>at delivery</td><td><span class="fs-status fs-status--green">Not started</span></td><td>&mdash;</td></tr>
+                <tr><td>C2</td><td>White goods + appliances top-up</td><td>Pieter</td><td>Aug&ndash;Oct 2026</td><td><span class="fs-status fs-status--green">Not started</span></td><td>&mdash;</td></tr>
               </tbody>
             </table>
           </div>
@@ -1061,13 +1077,13 @@ hr, .fs-rule {
           <h3 id="ws-gloria">09 Gloria admin</h3>
           <div class="fs-table-wrap">
             <table class="fs-table">
-              <thead><tr><th class="col-id">ID</th><th>Deliverable</th><th class="col-md">Owner</th><th class="col-md">Deadline</th><th class="col-status">Status</th></tr></thead>
+              <thead><tr><th class="col-id">ID</th><th>Deliverable</th><th class="col-md">Owner</th><th class="col-md">Deadline</th><th class="col-status">Status</th><th class="col-update">Update</th></tr></thead>
               <tbody>
-                <tr><td>G1</td><td>Book KvK appointment Leiden (ZZP)</td><td>Gloria</td><td>wk 28 Jul &ndash; 7 Aug</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
-                <tr><td>G2</td><td>Banking (bunq / Revolut / non-EU flow)</td><td>Daan + Gloria</td><td>post-BSN</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
-                <tr><td>G3</td><td>SIM-only mobile subscription</td><td>Daan + Gloria</td><td>post-BSN</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
-                <tr><td>G4</td><td>Track naturalisation status</td><td>Gloria</td><td>ongoing</td><td><span class="fs-status fs-status--yellow">In-progress</span></td></tr>
-                <tr><td>G5</td><td>DUO inburgeringscursus (Scenario B)</td><td>Gloria</td><td>Q4 2026</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
+                <tr><td>G1</td><td>Book KvK appointment Leiden (ZZP)</td><td>Gloria</td><td>wk 28 Jul &ndash; 7 Aug</td><td><span class="fs-status fs-status--green">Not started</span></td><td>&mdash;</td></tr>
+                <tr><td>G2</td><td>Banking (bunq / Revolut / non-EU flow)</td><td>Daan + Gloria</td><td>post-BSN</td><td><span class="fs-status fs-status--green">Not started</span></td><td>&mdash;</td></tr>
+                <tr><td>G3</td><td>SIM-only mobile subscription</td><td>Daan + Gloria</td><td>post-BSN</td><td><span class="fs-status fs-status--green">Not started</span></td><td>&mdash;</td></tr>
+                <tr><td>G4</td><td>Track naturalisation status</td><td>Gloria</td><td>ongoing</td><td><span class="fs-status fs-status--yellow">In-progress</span></td><td class="col-update--filled">Submitted Jan 2026; decision earliest Jul 2026.</td></tr>
+                <tr><td>G5</td><td>DUO inburgeringscursus (Scenario B)</td><td>Gloria</td><td>Q4 2026</td><td><span class="fs-status fs-status--green">Not started</span></td><td>&mdash;</td></tr>
               </tbody>
             </table>
           </div>
@@ -1078,12 +1094,12 @@ hr, .fs-rule {
           <h3 id="ws-school">10 School / KDV</h3>
           <div class="fs-table-wrap">
             <table class="fs-table">
-              <thead><tr><th class="col-id">ID</th><th>Deliverable</th><th class="col-md">Owner</th><th class="col-md">Deadline</th><th class="col-status">Status</th></tr></thead>
+              <thead><tr><th class="col-id">ID</th><th>Deliverable</th><th class="col-md">Owner</th><th class="col-md">Deadline</th><th class="col-status">Status</th><th class="col-update">Update</th></tr></thead>
               <tbody>
-                <tr><td>K1</td><td>Daycare shortlist Leiden &mdash; &ge;3 LRK centres</td><td>Pieter</td><td>15 May 2026</td><td><span class="fs-status fs-status--red">Open</span></td></tr>
-                <tr><td>K2</td><td>Waitlist registrations in parallel</td><td>Pieter + Gloria</td><td>22 May 2026</td><td><span class="fs-status fs-status--red">Not started</span></td></tr>
-                <tr><td>K3</td><td>Daycare contract + LRK number documented</td><td>Pieter + Gloria</td><td>15 Aug 2026</td><td><span class="fs-status fs-status--yellow">Not started</span></td></tr>
-                <tr><td>K4</td><td>Primary-school pre-research toddler</td><td>Pieter</td><td>Q4 2026</td><td><span class="fs-status fs-status--green">Not started</span></td></tr>
+                <tr><td>K1</td><td>Daycare shortlist Leiden &mdash; &ge;3 LRK centres</td><td>Pieter</td><td>15 May 2026</td><td><span class="fs-status fs-status--red">Open</span></td><td class="col-update--filled">Hard deadline this month &mdash; waitlists tight; late availability shifts KOT window.</td></tr>
+                <tr><td>K2</td><td>Waitlist registrations in parallel</td><td>Pieter + Gloria</td><td>22 May 2026</td><td><span class="fs-status fs-status--red">Not started</span></td><td>&mdash;</td></tr>
+                <tr><td>K3</td><td>Daycare contract + LRK number documented</td><td>Pieter + Gloria</td><td>15 Aug 2026</td><td><span class="fs-status fs-status--yellow">Not started</span></td><td>&mdash;</td></tr>
+                <tr><td>K4</td><td>Primary-school pre-research toddler</td><td>Pieter</td><td>Q4 2026</td><td><span class="fs-status fs-status--green">Not started</span></td><td>&mdash;</td></tr>
               </tbody>
             </table>
           </div>
@@ -1109,8 +1125,9 @@ hr, .fs-rule {
             <tr><td>Q6</td><td>Sander (tax)</td><td>Does Box 3 deemed return count toward KOT toetsingsinkomen? Load-bearing for KOT %.</td><td>T2</td></tr>
             <tr><td>Q7</td><td>Sander (tax)</td><td>Gloria ZZP income level needed to unlock IACK threshold.</td><td>T3</td></tr>
             <tr><td>Q8</td><td>Pieter</td><td>SVB peildatum kinderbijslag &mdash; Q3 2026 or Q4? (checkpoint end Sep)</td><td>T4</td></tr>
-            <tr><td>Q9</td><td>Pieter</td><td>Plan temporary housing 20 Jul &rarr; container arrival.</td><td>L6</td></tr>
-            <tr><td>Q10</td><td>Larry &rarr; Rens</td><td>Car selection post-arrival &mdash; activate later in Q3.</td><td>A1</td></tr>
+            <tr><td>Q9</td><td>Larry &rarr; Rens</td><td>Car selection post-arrival &mdash; activate later in Q3.</td><td>A1</td></tr>
+            <tr><td>Q10</td><td>Larry &rarr; Mila</td><td>Car insurance recommendation (WA / WA+ / Casco) once Rens delivers car shortlist.</td><td>A4</td></tr>
+            <tr><td>Q11</td><td>Pieter</td><td>Gloria's HK licence: confirm category + issue date. Does she also hold a CA-province licence (Alberta / Qu&eacute;bec are aangewezen) that would unlock direct exchange and skip CBR exams?</td><td>A2-OPEN</td></tr>
           </tbody>
         </table>
       </div>
@@ -1236,7 +1253,7 @@ hr, .fs-rule {
   <footer class="fs-footer">
     <div class="fs-container fs-footer-inner">
       <span>Relocation Dashboard &middot; Pieter &amp; Gloria</span>
-      <span>Last updated: 7 May 2026</span>
+      <span>Last updated: 7 May 2026 (rev 3)</span>
       <span class="fs-meta">Live at: verhuizen.beleggenvoor18.com</span>
     </div>
   </footer>
